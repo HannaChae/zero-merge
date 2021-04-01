@@ -1,4 +1,4 @@
-import React, { useState,  Fragment, useEffect } from 'react'
+import React, { useState,  Fragment } from 'react'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
@@ -16,8 +16,8 @@ const ProductEditComp = () => {
   const edit = e => {
       e.preventDefault()
       axios({
-          url: `http://localhost:8080/products/edit/` + localStorage.getItem(`prdNo`),
-          method: `put`,
+          url: 'http://localhost:8080/products/edit/' + localStorage.getItem(`prdNo`),
+          method: 'put',
           headers: {
             'Content-Type'  : 'application/json',
             'Authorization' : 'JWT fefege..'
@@ -26,7 +26,7 @@ const ProductEditComp = () => {
         })
       .then(res => {
         console.log(`수정 성공 ` + res.data)
-        history.push('/product-all')
+        history.push(`/product-all`)
         })
       .catch(err => {
         console.log(`수정 실패`)
@@ -81,4 +81,4 @@ const ProductEditComp = () => {
     </>)
 }
 
-export default ProductEditComp
+export default ProductEditComp;

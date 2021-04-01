@@ -19,4 +19,4 @@ const ProductImageGalleryStickyComp = ({ product }) => {
   )
 }
 
-export default ProductImageGalleryStickyComp
+export default ProductImageGalleryStickyComp;

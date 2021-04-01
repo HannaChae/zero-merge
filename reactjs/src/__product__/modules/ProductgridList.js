@@ -1,10 +1,10 @@
 import PropTypes from "prop-types"
 import React, { Fragment } from "react"
 import { connect } from "react-redux"
-import { addToCart } from "../../redux/actions/cartActions"
-import { addToWishlist } from "../../redux/actions/wishlistActions"
-import { addToCompare } from "../../redux/actions/compareActions"
-import ProductGridListSingle from "./ProductGridListSingle"
+import { addToCart } from "__product__/actions/cartActions"
+import { addToCompare } from "__product__/actions/compareActions"
+import { addToWishlist } from "__product__/actions/wishlistActions"
+import ProductGridListSingle from "__product__/modules/ProductGridListSingle"
 
 const ProductGridList = ({
   products,

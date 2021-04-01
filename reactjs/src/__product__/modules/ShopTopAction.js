@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import React from "react"
-import { setActiveLayout } from "../../__common__/modules/helpers/product"
+import { setActiveLayout } from "helpers/product"
 
 const ShopTopAction = ({
   getLayout,
@@ -62,4 +62,4 @@ ShopTopAction.propTypes = {
   sortedProductCount: PropTypes.number
 }
 
-export default ShopTopAction
+export default ShopTopAction;

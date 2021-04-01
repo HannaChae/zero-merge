@@ -2,8 +2,8 @@ import React from "react"
 import { useToasts } from "react-toast-notifications"
 import Sticky from "react-sticky-el"
 import { connect } from "react-redux"
-import ProductDescriptionInfo from "./ProductDescriptionInfo"
-import ProductImageGallerySticky from "./ProductImageGallerySticky"
+import ProductDescriptionInfo from "__product__/modules/ProductDescriptionInfo"
+import ProductImageGallerySticky from "__product__/modules/ProductImageGallerySticky"
 
 const ProductImageDescriptionStickyComp = ({
   spaceTopClass,

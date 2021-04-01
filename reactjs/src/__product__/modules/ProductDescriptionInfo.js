@@ -2,10 +2,10 @@ import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getProductCartQuantity } from '../../__common__/modules/helpers/product'
-import { addToCart } from '../../redux/actions/cartActions'
-import { addToWishlist } from '../../redux/actions/wishlistActions'
-import { addToCompare } from '../../redux/actions/compareActions'
+import { getProductCartQuantity } from 'helpers/product'
+import { addToCart } from '__product__/actions/cartActions'
+import { addToWishlist } from '__product__/actions/wishlistActions'
+import { addToCompare } from '__product__/actions/compareActions'
 import axios from 'axios'
 
 const ProductDescriptionInfo = ({
@@ -23,12 +23,13 @@ const ProductDescriptionInfo = ({
     cartItems,
     product
   )
+  
   const remove = e =>  {
     e.preventDefault()
-    const removeConfirm = window.confirm('해당 제품을 삭제하시겠습니까?')
+    const removeConfirm = window.confirm(`해당 제품을 삭제하시겠습니까?`)
     if(removeConfirm) {
       axios({
-        url: `http://localhost:8080/products/delete/` + localStorage.getItem('prdNo'),
+        url: 'http://localhost:8080/products/delete/' + localStorage.getItem(`prdNo`),
         method: 'delete',
         headers: {
           'Content-Type'  : 'application/json',
@@ -37,7 +38,7 @@ const ProductDescriptionInfo = ({
         data: {}
       })
       .then(res => {
-        history.push('/product-all')
+        history.push(`/product-all`)
       })
       .catch(err => {
         console.log(`삭제 실패: ` + err)
@@ -47,13 +48,13 @@ const ProductDescriptionInfo = ({
   }
 
   return (
-    <div className='product-details-content ml-70'>
+    <div className="product-details-content ml-70">
       <h2>{product.prdName}</h2>
-      <div className='product-details-price'>
-        <span>{currency.currencySymbol + product.prdPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</span>
+      <div className="product-details-price">
+        <span>{currency.currencySymbol + product.prdPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
       </div>
 
-      <div className='pro-details-list'>
+      <div className="pro-details-list">
         <ul>
           <li><span><strong>원산지</strong></span> 대한민국 </li>
           <li><span><strong>브랜드</strong></span> ZER0 SHOP </li>
@@ -62,19 +63,19 @@ const ProductDescriptionInfo = ({
         </ul>
       </div>
 
-      <div className='pro-details-quality'>
-        <div className='cart-plus-minus'>
+      <div className="pro-details-quality">
+        <div className="cart-plus-minus">
           <button
             onClick={() =>
               setQuantityCount(quantityCount > 1 ? quantityCount - 1 : 1)
             }
-            className='dec qtybutton'
+            className="dec qtybutton"
           >
             -
           </button>
           <input
-            className='cart-plus-minus-box'
-            type='text'
+            className="cart-plus-minus-box"
+            type="text"
             value={quantityCount}
             readOnly
           />
@@ -86,12 +87,12 @@ const ProductDescriptionInfo = ({
                   : quantityCount
               )
             }
-            className='inc qtybutton'
+            className="inc qtybutton"
           >
             +
           </button>
         </div>
-        <div className='pro-details-cart btn-hover'>
+        <div className="pro-details-cart btn-hover">
           {product.prdInv && product.prdInv > 0 ? (
             <button
               onClick={() =>
@@ -103,43 +104,43 @@ const ProductDescriptionInfo = ({
               }
               disabled={productCartQty >= product.prdInv}
             >
-              {' '}
-              Add To Cart{' '}
+              {" "}
+              Add To Cart{" "}
             </button>
           ) : (
             <button disabled>Out of Stock</button>
           )}
         </div>
-        <div className='pro-details-wishlist'>
+        <div className="pro-details-wishlist">
           <button
-            className={wishlistItem !== undefined ? 'active' : ''}
+            className={wishlistItem !== undefined ? "active" : ""}
             disabled={wishlistItem !== undefined}
             title={
               wishlistItem !== undefined
-                ? 'Added to wishlist'
-                : 'Add to wishlist'
+                ? "Added to wishlist"
+                : "Add to wishlist"
             }
             onClick={() => addToWishlist(product, addToast)}
           >
-            <i className='pe-7s-like' />
+            <i className="pe-7s-like" />
           </button>
           <button onClick={() => localStorage.setItem('prdNo', JSON.stringify(product.prdNo))}>
-            <Link to={'/product-edit/' + product.prdNo}>
+            <Link to={"/product-edit/" + product.prdNo}>
               Edit
             </Link>
           </button>
-          <button key={product.prdNo} onClick={ remove   }> 삭제 </button>
+          <button key={product.prdNo} onClick={ remove }> 삭제 </button>
         </div>
       </div>
 
       {product.category ? (
-        <div className='pro-details-meta'>
+        <div className="pro-details-meta">
           <span>Categories :</span>
           <ul>
             {product.category.map((single, key) => {
               return (
                 <li key={key}>
-                  <Link to={process.env.PUBLIC_URL + '/product-detail'}>
+                  <Link to={process.env.PUBLIC_URL + "/product-detail"}>
                     {single}
                   </Link>
                 </li>
@@ -148,16 +149,16 @@ const ProductDescriptionInfo = ({
           </ul>
         </div>
       ) : (
-        ''
+        ""
       )}
       {product.tag ? (
-        <div className='pro-details-meta'>
+        <div className="pro-details-meta">
           <span>Tags :</span>
           <ul>
             {product.tag.map((single, key) => {
               return (
                 <li key={key}>
-                  <Link to={process.env.PUBLIC_URL + '/product-detail'}>
+                  <Link to={process.env.PUBLIC_URL + "/product-detail"}>
                     {single}
                   </Link>
                 </li>
@@ -166,24 +167,24 @@ const ProductDescriptionInfo = ({
           </ul>
         </div>
       ) : (
-        ''
+        ""
       )}
 
-      <div className='pro-details-social'>
+      <div className="pro-details-social">
         <ul>
           <li>
-            <a href='//facebook.com'>
-              <i className='fa fa-facebook' />
+            <a href="//facebook.com">
+              <i className="fa fa-facebook" />
             </a>
           </li>
           <li>
-            <a href='//twitter.com'>
-              <i className='fa fa-twitter' />
+            <a href="//twitter.com">
+              <i className="fa fa-twitter" />
             </a>
           </li>
           <li>
-            <a href='//instagram.com'>
-              <i className='fa fa-linkedin' />
+            <a href="//instagram.com">
+              <i className="fa fa-linkedin" />
             </a>
           </li>
         </ul>

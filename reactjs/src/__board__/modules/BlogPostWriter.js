@@ -12,7 +12,7 @@ const useStyles = makeStyles (()=>({
 }))	
 
 
-export const BlogPostWriter = () => {
+const BlogPostWriter = () => {
   const history = useHistory()
   const [brdTitle, setBrdTitle] = useState('')
   const [brdContent, setBrdContent] = useState('')

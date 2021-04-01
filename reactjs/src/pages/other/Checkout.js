@@ -8,11 +8,8 @@ import { getDiscountPrice } from "../../helpers/product";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import axios from 'axios'
-import { TextField } from '@material-ui/core';
-import DaumPostcode from './DaumPostcode';
 import $ from "jquery";
 import jQuery from "jquery";
-import { CompareRounded } from "@material-ui/icons";
 import moment from "moment";
 window.$ = window.jQuery = jQuery;
 
@@ -21,17 +18,15 @@ const Checkout = ({ location, cartItems, currency}) => {
 
   const [usrEmail, setUsrEmail] = useState('')
   const [user, setUser] = useState([])
-  const URL = '/user/all'
- useEffect(()=>{
-   axios.get(URL, )
-   .then((response) => {
-     setUser(response.data)
-   })
-   .catch((error) => {
-     alert('실패')
-     throw error;
-   })
-  },[])
+  
+  useEffect(()=>{
+    axios.get("http://localhost:8080/usr/all")
+    .then(({ data }) => setUser(data))
+    .catch((error) => {
+      alert('실패')
+      throw error;
+    })
+   },[])
 
   const [ addr, setAddr ] = useState('')
   const [ extraAddr, setExtraAddr ] = useState('')
@@ -123,8 +118,8 @@ const Checkout = ({ location, cartItems, currency}) => {
     axios.post("http://localhost:8080/payment/save", {
       payPrice: `${cartTotalPrice.toFixed(0)}`,
       payAmount, 
-      // rcvName, rcvPhone, 
-      // rcvAddr: `${postcode} ${addr} ${extraAddr}` + fullAddr,
+      rcvName, rcvPhone, 
+      rcvAddr: `${postcode} ${addr} ${extraAddr}` + fullAddr,
       dvrFee: '0',
       payDate: nowTime,
       payState: '결제완료'
@@ -245,10 +240,10 @@ const Checkout = ({ location, cartItems, currency}) => {
                               );
                               const finalProductPrice = (
                                 cartItem.price * currency.currencyRate
-                              ).toFixed(2);
+                              );
                               const finalDiscountedPrice = (
                                 discountedPrice * currency.currencyRate
-                              ).toFixed(2);
+                              );
 
                               discountedPrice != null
                                 ? (cartTotalPrice +=
@@ -266,11 +261,11 @@ const Checkout = ({ location, cartItems, currency}) => {
                                         (
                                           finalDiscountedPrice *
                                           cartItem.quantity
-                                        ).toFixed(2)
+                                        )
                                       : currency.currencySymbol +
                                         (
                                           finalProductPrice * cartItem.quantity
-                                        ).toFixed(2)}
+                                        )}
                                   </span>
                                 </li>
                               );

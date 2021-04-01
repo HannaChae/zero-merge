@@ -2,25 +2,14 @@ package chn.scalar.api.usr.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-import chn.scalar.api.lvl.domain.Level;
-import chn.scalar.api.lvl.domain.Level;
+import javax.persistence.*;
 import chn.scalar.api.pay.domain.Payment;
-
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 
 @Entity
-@Getter
+@Data
 public class UserVo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,8 +25,8 @@ public class UserVo {
 	@Column(name = "usr_email")
 	private String usrEmail;
 
-	@Column(name = "usr_pwd")
-	private String usrPwd;
+	@Column(name = "password")
+	private String password;
 
 	@Column(name = "usr_ages")
 	private String usrAges;
@@ -51,23 +40,24 @@ public class UserVo {
 	@Column(name = "usr_phone")
 	private String usrPhone;
 
-	@Column(name = "usr_id")
-	private String usrId;
+	@Column(name = "username")
+	private String username;
 
 	@Column(name = "usr_addr")
 	private String usrAddr;
 
-	@ManyToOne
-	@JoinColumn(name = "level")
-	private Level level;
 
-	 @OneToMany(mappedBy = "userVo")
-	 private List<Payment> payments = new ArrayList<>();
+	@ElementCollection(fetch = FetchType.EAGER)
+	List<Role> roles;
+
+	@OneToMany(mappedBy = "userVo")
+	private List<Payment> payments = new ArrayList<>();
 
 	@Builder
-	public UserVo(Long usrNo, String usrName, String usrNickname, String usrGender, String usrPhone, String usrEmail,
+	public UserVo(Long usrNo, String username, String usrName, String usrNickname, String usrGender, String usrPhone, String usrEmail,
 				  String usrAges, String usrCity, String usrAddr) {
 		this.usrNo = usrNo;
+		this.username = username;
 		this.usrName = usrName;
 		this.usrNickname = usrNickname;
 		this.usrGender = usrGender;

@@ -1,11 +1,11 @@
 import PropTypes from "prop-types"
 import React, { Fragment, useEffect, useState } from "react"
 import { connect } from "react-redux"
-import { getProducts } from "../../__common__/modules/helpers/product"
-import ProductGridSingle from "./ProductGridSingle"
-import { addToCart } from "../../redux/actions/cartActions"
-import { addToWishlist } from "../../redux/actions/wishlistActions"
-import { addToCompare } from "../../redux/actions/compareActions"
+import { getProducts } from "helpers/product"
+import { addToCart } from "__product__/actions/cartActions"
+import { addToCompare } from "__product__/actions/compareActions"
+import { addToWishlist } from "__product__/actions/wishlistActions"
+import ProductGridSingle from "__product__/modules/ProductGridSingle"
 import axios from 'axios'
 
 const ProductGrid = ({
@@ -20,10 +20,11 @@ const ProductGrid = ({
   spaceBottomClass
 }) => {
   const [products, setProducts] = useState([])
+  
   useEffect(() => {
     axios({
-      url: `http://localhost:8080/products/category/` + localStorage.getItem('ctgName'),
-      methos: `get`,
+      url: 'http://localhost:8080/products/category/' + localStorage.getItem(`ctgName`),
+      methos: 'get',
       headers: {
         'Content-Type'  : 'application/json',
         'Authorization' : 'JWT fefege..'
@@ -34,7 +35,7 @@ const ProductGrid = ({
       setProducts(res.data)
     })
     .catch((err) => {
-      console.log(`error !`)
+      console.log(`error!`)
       throw err
     })
   }, [])

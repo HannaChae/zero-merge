@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import React from "react"
-import { setActiveSort } from "../../__common__/modules/helpers/product"
+import { setActiveSort } from "helpers/product"
 
 const ShopTag = ({ tags, getSortParams }) => {
   return (
@@ -37,4 +37,4 @@ ShopTag.propTypes = {
   tags: PropTypes.array
 }
 
-export default ShopTag
+export default ShopTag;

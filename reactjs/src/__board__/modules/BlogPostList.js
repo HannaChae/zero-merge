@@ -14,7 +14,7 @@ import styled, { createGlobalStyle } from "styled-components";
 //   const handleClick = e => {
 //     e.currentTarget.nextSibling.classList.toggle("active");
 //   };
-export const BlogPostList= ({ history })=>{
+const BlogPostList= ({ history })=>{
   const [text,setText] = useState('')
   const ser = (e) =>{
     setText(e.target.value)
@@ -35,18 +35,24 @@ export const BlogPostList= ({ history })=>{
     throw err})
   }
   
- useEffect(()=>{
-   axios.get(URL, )
-   .then(({data}) => {
-    setBoard(data)
-
-   })
-   .catch((error) => {
-     alert('실패')
-     throw error;
-   })
-   
- },[])
+  useEffect(() => {
+    axios({
+      url: 'http://localhost:8080//board/blogAll',
+      methos: 'get',
+      headers: {
+        'Content-Type'  : 'application/json',
+        'Authorization' : 'JWT fefege..'
+      },
+      data: {}
+      })
+    .then((res) => {
+      setBoard(res.data)
+    })
+    .catch((err) => {
+      console.log(`error!`)
+      throw err
+    })
+  }, [])
 
   return (
     <>

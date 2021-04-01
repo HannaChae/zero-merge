@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import React, { Fragment } from "react"
-import ShopTopAction from "./ShopTopAction"
+import ShopTopAction from "__product__/modules/ShopTopAction"
 
 const ShopTopbar = ({
   getLayout,
@@ -28,4 +28,4 @@ ShopTopbar.propTypes = {
   sortedProductCount: PropTypes.number
 }
 
-export default ShopTopbar
+export default ShopTopbar;

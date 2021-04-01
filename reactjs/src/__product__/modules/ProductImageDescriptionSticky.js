@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import React, { useState, useEffect } from "react"
-import ProductImageDescriptionStickyComp from './ProductImageDescriptionStickyComp'
+import ProductImageDescriptionStickyComp from '__product__/modules/ProductImageDescriptionStickyComp'
 import axios from 'axios'
 
 const ProductImageDescriptionSticky = () => {
@@ -8,8 +8,8 @@ const ProductImageDescriptionSticky = () => {
 
   useEffect(() => {
     axios({
-      url: `http://localhost:8080/products/product-number/` + localStorage.getItem('prdNo'),
-      methos: `get`,
+      url: 'http://localhost:8080/products/product-number/' + localStorage.getItem(`prdNo`),
+      methos: 'get',
       headers: {
         'Content-Type'  : 'application/json',
         'Authorization' : 'JWT fefege..'
@@ -20,7 +20,7 @@ const ProductImageDescriptionSticky = () => {
       setProducts(res.data)
     })
     .catch((err) => {
-      console.log(`error !`)
+      console.log(`error!`)
       throw err
     })
   }, [])
@@ -29,8 +29,8 @@ const ProductImageDescriptionSticky = () => {
     {products.map((product => {
       return(
         <ProductImageDescriptionStickyComp product={product} key={product.prdNo} />
-      )
-    }))}
+      )}
+    ))}
   </>)
 }
 

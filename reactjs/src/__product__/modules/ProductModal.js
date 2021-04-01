@@ -3,7 +3,7 @@ import React, { Fragment, useState, useEffect } from "react"
 import Swiper from "react-id-swiper"
 import { Modal } from "react-bootstrap"
 import { connect } from "react-redux"
-import { getProductCartQuantity } from "../../__common__/modules/helpers/product"
+import { getProductCartQuantity } from "helpers/product"
 
 function ProductModal(props) {
   const { product } = props

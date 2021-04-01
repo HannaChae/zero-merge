@@ -1,18 +1,15 @@
 package chn.scalar.api.usr.repository;
 
-import java.util.List;
-
-import java.util.Optional;
-
-import javax.persistence.EntityManager;
-
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import chn.scalar.api.usr.domain.UserVo;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
-import chn.scalar.api.usr.domain.UserVo;
-import com.querydsl.jpa.impl.JPAQueryFactory;
+import javax.persistence.EntityManager;
+import java.util.List;
+import java.util.Optional;
+
 import static chn.scalar.api.usr.domain.QUserVo.userVo;
-import static chn.scalar.api.pay.domain.QPayment.payment;
 
 @Repository
 public class UserRepositoryImpl extends QuerydslRepositorySupport implements IUserRepository {
@@ -25,12 +22,13 @@ public class UserRepositoryImpl extends QuerydslRepositorySupport implements IUs
 		this.entityManager = entityManager;
 		this.queryFactory = queryFactory;
 	}
-	
+
 	@Override
 	public List<UserVo> findAllUser() {
 		return queryFactory.selectFrom(userVo)
 				.orderBy(userVo.usrName.desc())
 				.fetch();
+
 	}
 
 
@@ -38,6 +36,7 @@ public class UserRepositoryImpl extends QuerydslRepositorySupport implements IUs
 	public List<UserVo> findByName(String name) {
 		return queryFactory.selectFrom(userVo)
 				.where(userVo.usrName.eq(name)).fetch();
+
 	}
 
 
@@ -51,14 +50,14 @@ public class UserRepositoryImpl extends QuerydslRepositorySupport implements IUs
 	@Override
 	public boolean checkId(String id) {
 		return queryFactory.selectFrom(userVo)
-				.where(userVo.usrId.eq(id))
+				.where(userVo.username.eq(id))
 				.fetchOne() != null ? true : false;
 	}
 
 
 	@Override
 	public String findIdByEmail(String email) {
-		return queryFactory.select(userVo.usrId).from(userVo).fetchOne();
+		return queryFactory.select(userVo.username).from(userVo).fetchOne();
 	}
 
 	@Override
@@ -79,13 +78,8 @@ public class UserRepositoryImpl extends QuerydslRepositorySupport implements IUs
 	public Optional<UserVo> updatePassword(String password) {
 		return Optional.ofNullable(queryFactory
 				.selectFrom(userVo)
-				.where(userVo.usrPwd.eq(password))
+				.where(userVo.password.eq(password))
 				.fetchOne());
-	}
-
-	@Override
-	public void updateUserPassword(String id, String password) {
-
 	}
 
 	@Override
@@ -93,16 +87,27 @@ public class UserRepositoryImpl extends QuerydslRepositorySupport implements IUs
 
 		return Optional.ofNullable(
 				queryFactory.selectFrom(userVo)
-					.where(userVo.usrEmail.eq(email).and(userVo.usrPwd.eq(password)))
-					.fetchOne());
+						.where(userVo.usrEmail.eq(email).and(userVo.password.eq(password)))
+						.fetchOne());
 	}
 
 	@Override
 	public Optional<UserVo> findPassword(String password) {
 		return Optional.ofNullable(queryFactory.selectFrom(userVo)
-				.where(userVo.usrPwd.eq(password))
+				.where(userVo.password.eq(password))
 				.fetchOne());
 	}
 
+
+
+
+
+
+
+
+	@Override
+	public void updateUserPassword(String id, String password) {
+
+	}
 
 }

@@ -8,7 +8,7 @@ const useStyles = makeStyles (()=>({
         image: {height:40, width:40}
 }))
 
-export const BlogPostUpdate = ({match,props}) => {
+const BlogPostUpdate = ({match,props}) => {
 const [board, setBoard] = useState([])
 const URL =  `/board/opt/`+localStorage.getItem('brdNo')
 const HT = `http://localhost:8080/board/update/`+localStorage.getItem(`brdNo`)

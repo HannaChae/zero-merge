@@ -14,8 +14,8 @@ const ProductAddComp = () => {
     const add = e => {
       e.preventDefault()
       axios({
-        url: `http://localhost:8080/products/save`,
-        method: `post`,
+        url: 'http://localhost:8080/products/save',
+        method: 'post',
         headers: {
           'Content-Type'  : 'application/json',
           'Authorization' : 'JWT fefege..'

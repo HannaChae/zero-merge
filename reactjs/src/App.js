@@ -1,36 +1,29 @@
 import PropTypes from "prop-types";
-import React, { Component, useState, useEffect, Suspense, lazy } from "react";
+import React, {  useEffect, Suspense, lazy } from "react";
 import ScrollToTop from "helpers/scroll-top";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ToastProvider } from "react-toast-notifications";
 import { multilanguage, loadLanguages } from "redux-multilanguage";
 import { connect } from "react-redux";
 import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
-import {BlogDetail,BlogList,BlogDetailsStandard,BlogUpdate} from '__board__/pages/index'
+import {BlogDetail,BlogList,BlogUpdate} from '__board__/index'
+// import { Checkout, MyAccount } from "__payment__/index"
 // home pages
-const MainPage = lazy(() => import("yMainPage"))
-
+import { CartPage, ProductListPage, ProductDetailPage, ProductAddPage, ProductEditPage } from "__product__/index"
+const MainPage = lazy(() => import("__common__/pages/MainPage"))
 // shop pages
-const ProductListPage = lazy(() => import("__product__/pages/ProductListPage"))
-const ProductDetailPage = lazy(() => import("__product__/pages/ProductDetailPage"))
-const ProductAddPage = lazy(() => import("__product__/pages/ProductAddPage"))
-const ProductEditPage = lazy(() => import("__product__/pages/ProductEditPage"))
 
 // other pages
 const About = lazy(() => import("pages/other/About"));
 const Contact = lazy(() => import("pages/other/Contact"));
-const MyAccount = lazy(() => import("pages/other/MyAccount"));
+const MyAccount = lazy(() => import("__payment__/pages/MyAccount"));
 const LoginRegister = lazy(() => import("pages/other/LoginRegister"));
-
 const Cart = lazy(() => import("pages/other/Cart"));
 const Wishlist = lazy(() => import("pages/other/Wishlist"));
 const Compare = lazy(() => import("pages/other/Compare"));
-const Checkout = lazy(() => import("pages/other/Checkout"));
-
+const Checkout = lazy(() => import("__payment__/pages/Checkout"));
 const NotFound = lazy(() => import("pages/other/NotFound"));
-
 const App = (props) => {
-
   useEffect(() => {
     props.dispatch(
       loadLanguages({
@@ -42,7 +35,6 @@ const App = (props) => {
       })
     );
   });
-
   return (
     <ToastProvider placement="bottom-left">
       <BreadcrumbsProvider>
@@ -59,28 +51,31 @@ const App = (props) => {
               }
             >
               <Switch>
-              <Route
+                {/* <Route
+                  exact
+                  path={process.env.PUBLIC_URL + "/"}
+                  component={HomeFashionThree}
+                /> */}
+                <Route
                   exact
                   path={process.env.PUBLIC_URL + "/"}
                   component={MainPage}
                 />
-                  {/* Homepages */}
-                  <Route
+                {/* Homepages */}
+                <Route
                   path={process.env.PUBLIC_URL + "/main"}
                   component={MainPage}
                 />
-
                 {/* Shop pages */}
                 <Route
                   path={process.env.PUBLIC_URL + "/product-all"}
                   component={ProductListPage}
                 />
-
                 {/* Shop product pages */}
                 <Route
                   path={process.env.PUBLIC_URL + "/product-detail/:id"}
                   render={(routeProps) => (
-                    <ProductDetailPage {...routeProps} key={routeProps.match.params.__product__No} />
+                    <ProductDetailPage {...routeProps} key={routeProps.match.params.prdNo} />
                   )}
                 />
                 <Route
@@ -95,27 +90,10 @@ const App = (props) => {
                   path={process.env.PUBLIC_URL + "/product-edit/:id"}
                   component={ProductEditPage}
                 />
-
-                 {/* Blog pages */}
-                 <Route
+                {/* Blog pages */}
+                <Route
                   path={process.env.PUBLIC_URL + "/blog-update"}
                   component={BlogUpdate}
-                />
-                {/* <Route
-                  path={process.env.PUBLIC_URL + "/blog-standard"}
-                  component={BlogStandard}
-                />
-                <Route
-                  path={process.env.PUBLIC_URL + "/blog-no-sidebar"}
-                  component={BlogNoSidebar}
-                />
-                <Route
-                  path={process.env.PUBLIC_URL + "/blog-right-sidebar"}
-                  component={BlogRightSidebar}
-                /> */}
-                <Route
-                  path={process.env.PUBLIC_URL + "/blog-details-standard"}
-                  component={BlogDetailsStandard}
                 />
                   <Route
                   path={process.env.PUBLIC_URL + "/blog-detail"}
@@ -125,7 +103,6 @@ const App = (props) => {
                   path={process.env.PUBLIC_URL + "/blog-list"}
                   component={BlogList}
                 />
-
                 {/* Other pages */}
                 <Route
                   path={process.env.PUBLIC_URL + "/about"}
@@ -143,10 +120,9 @@ const App = (props) => {
                   path={process.env.PUBLIC_URL + "/login-register"}
                   component={LoginRegister}
                 />
-
                 <Route
                   path={process.env.PUBLIC_URL + "/cart"}
-                  component={Cart}
+                  component={CartPage}
                 />
                 <Route
                   path={process.env.PUBLIC_URL + "/wishlist"}
@@ -160,12 +136,10 @@ const App = (props) => {
                   path={process.env.PUBLIC_URL + "/checkout"}
                   component={Checkout}
                 />
-
                 <Route
                   path={process.env.PUBLIC_URL + "/not-found"}
                   component={NotFound}
                 />
-
                 <Route exact component={NotFound} />
               </Switch>
             </Suspense>
@@ -175,9 +149,7 @@ const App = (props) => {
     </ToastProvider>
   );
 };
-
 App.propTypes = {
   dispatch: PropTypes.func
 };
-
 export default connect()(multilanguage(App));

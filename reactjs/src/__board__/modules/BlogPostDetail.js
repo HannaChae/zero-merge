@@ -9,7 +9,7 @@ const useStyles = makeStyles (()=>({
         image: {height:40, width:40}
 }))
 
-export const BlogPostDetail = () => {
+const BlogPostDetail = () => {
 const [board, setBoard] = useState([])
 const URL =  `/board/opt/`+localStorage.getItem('brdNo')
 const Ur = `http://localhost:8080/board/delete/`+localStorage.getItem('brdNo')
