@@ -1,15 +1,13 @@
 import PropTypes from "prop-types"
-import React, { Fragment } from "react"
+import React from "react"
 import { Link } from "react-router-dom"
 import { useToasts } from "react-toast-notifications"
 import MetaTags from "react-meta-tags"
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic"
 import { connect } from "react-redux"
-import { getDiscountPrice } from "helpers/product"
-import { addToWishlist, deleteFromWishlist, deleteAllFromWishlist } from "__product__/actions/wishlistActions"
-import { addToCart } from "__product__/actions/cartActions"
-import LayoutOne from "layouts/LayoutOne"
-import Breadcrumb from "wrappers/breadcrumb/Breadcrumb"
+import { Layout, Breadcrumb } from "__common__/index"
+import { addToCart } from "redux/actions/cartActions"
+import { addToWishlist, deleteFromWishlist, deleteAllFromWishlist } from "redux/actions/wishlistActions"
 
 const WishlistPage = ({
   location,
@@ -20,203 +18,179 @@ const WishlistPage = ({
   deleteFromWishlist,
   deleteAllFromWishlist
 }) => {
-  const { addToast } = useToasts()
   const { pathname } = location
+  const { addToast } = useToasts()
 
-  return (
-    <Fragment>
-      <MetaTags>
-        <title>ZER0 SHOP | Wishlist</title>
-      </MetaTags>
+  return (<>
+    <MetaTags>
+      <title>ZER0 SHOP | Wishlist</title>
+    </MetaTags>
 
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
-      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
-        Wishlist
-      </BreadcrumbsItem>
+    <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
+    <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>Wishlist</BreadcrumbsItem>
 
-      <LayoutOne headerTop="visible">
-        {/* breadcrumb */}
-        <Breadcrumb />
-        <div className="cart-main-area pt-90 pb-100">
-          <div className="container">
-            {wishlistItems && wishlistItems.length >= 1 ? (
-              <Fragment>
-                <h3 className="cart-page-title">Your wishlist items</h3>
-                <div className="row">
-                  <div className="col-12">
-                    <div className="table-content table-responsive cart-table-content">
-                      <table>
-                        <thead>
-                          <tr>
-                            <th>Image</th>
-                            <th>Product Name</th>
-                            <th>Unit Price</th>
-                            <th>Add To Cart</th>
-                            <th>action</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {wishlistItems.map((wishlistItem, key) => {
-                            const discountedPrice = getDiscountPrice(
-                              wishlistItem.prdPrice,
-                              wishlistItem.discount
-                            )
-                            const finalProductPrice = (
-                              wishlistItem.prdPrice * currency.currencyRate
-                            )
-                            const finalDiscountedPrice = (
-                              discountedPrice * currency.currencyRate
-                            )
-                            const cartItem = cartItems.filter(
-                              item => item.id === wishlistItem.id
-                            )[0]
-                            return (
-                              <tr key={key}>
-                                <td className="product-thumbnail">
-                                  <Link
-                                    to={
+    <Layout headerTop="visible">
+      {/* breadcrumb */}
+      <Breadcrumb />
+      <div className="cart-main-area pt-90 pb-100">
+        <div className="container">
+          {wishlistItems && wishlistItems.length >= 1 ? (
+            <>
+              <h3 className="cart-page-title">Your wishlist items</h3>
+              <div className="row">
+                <div className="col-12">
+                  <div className="table-content table-responsive cart-table-content">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Image</th>
+                          <th>Product Name</th>
+                          <th>Unit Price</th>
+                          <th>Add To Cart</th>
+                          <th>action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {wishlistItems.map((wishlistItem, key) => {
+                          const finalProductPrice = (
+                            wishlistItem.prdPrice * currency.currencyRate
+                          )
+                          const cartItem = cartItems.filter(
+                            item => item.prdNo === wishlistItem.prdNo
+                          )[0]
+                          return (
+                            <tr key={key}>
+                              <td className="product-thumbnail">
+                                <Link
+                                  to={
+                                    process.env.PUBLIC_URL +
+                                    "/product-detail/" +
+                                    wishlistItem.prdNo
+                                  }
+                                >
+                                  <img
+                                    className="img-fluid"
+                                    src={
                                       process.env.PUBLIC_URL +
-                                      "/product-detail/" +
-                                      wishlistItem.id
+                                      wishlistItem.prdImg
                                     }
-                                  >
-                                    <img
-                                      className="img-fluid"
-                                      src={
-                                        process.env.PUBLIC_URL +
-                                        wishlistItem.prdImg
-                                      }
-                                      alt=""
-                                    />
-                                  </Link>
-                                </td>
+                                    alt=""
+                                  />
+                                </Link>
+                              </td>
 
-                                <td className="product-name text-center">
-                                  <Link
-                                    to={
-                                      process.env.PUBLIC_URL +
-                                      "/product/" +
-                                      wishlistItem.id
-                                    }
-                                  >
-                                    {wishlistItem.prdName}
-                                  </Link>
-                                </td>
+                              <td className="product-name text-center">
+                                <Link
+                                  to={
+                                    process.env.PUBLIC_URL +
+                                    "/product-detail/" +
+                                    wishlistItem.prdNo
+                                  }
+                                >
+                                  {wishlistItem.prdName}
+                                </Link>
+                              </td>
 
-                                <td className="product-price-cart">
-                                  {discountedPrice !== null ? (
-                                    <Fragment>
-                                      <span className="amount old">
-                                        {currency.currencySymbol +
-                                          finalProductPrice}
-                                      </span>
-                                      <span className="amount">
-                                        {currency.currencySymbol +
-                                          finalDiscountedPrice}
-                                      </span>
-                                    </Fragment>
-                                  ) : (
-                                    <span className="amount">
-                                      {currency.currencySymbol +
-                                        finalProductPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                                    </span>
-                                  )}
-                                </td>
+                              <td className="product-price-cart">
+                                <span className="amount">
+                                  {currency.currencySymbol +
+                                    finalProductPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                                  </span>
+                              </td>
 
-                                <td className="product-wishlist-cart">
-                                  {wishlistItem.prdInv &&
-                                    wishlistItem.prdInv > 0 ? (
-                                    <button
-                                      onClick={() =>
-                                        addToCart(wishlistItem, addToast)
-                                      }
-                                      className={
-                                        cartItem !== undefined &&
-                                        cartItem.quantity > 0
-                                          ? "active"
-                                          : ""
-                                      }
-                                      disabled={
-                                        cartItem !== undefined &&
-                                        cartItem.quantity > 0
-                                      }
-                                      title={
-                                        wishlistItem !== undefined
-                                          ? "Added to cart"
-                                          : "Add to cart"
-                                      }
-                                    >
-                                      {cartItem !== undefined &&
-                                      cartItem.quantity > 0
-                                        ? "Added"
-                                        : "Add to cart"}
-                                    </button>
-                                  ) : (
-                                    <button disabled className="active">
-                                      Out of stock
-                                    </button>
-                                  )}
-                                </td>
-
-                                <td className="product-remove">
+                              <td className="product-wishlist-cart">
+                                {wishlistItem.prdInv &&
+                                  wishlistItem.prdInv > 0 ? (
                                   <button
                                     onClick={() =>
-                                      deleteFromWishlist(wishlistItem, addToast)
+                                      addToCart(wishlistItem, addToast)
+                                    }
+                                    className={
+                                      cartItem !== undefined &&
+                                      cartItem.quantity > 0
+                                        ? "active"
+                                        : ""
+                                    }
+                                    disabled={
+                                      cartItem !== undefined &&
+                                      cartItem.quantity > 0
+                                    }
+                                    title={
+                                      wishlistItem !== undefined
+                                        ? "Added to cart"
+                                        : "Add to cart"
                                     }
                                   >
-                                    <i className="fa fa-times"></i>
+                                    {cartItem !== undefined &&
+                                    cartItem.quantity > 0
+                                      ? "Added"
+                                      : "Add to cart"}
                                   </button>
-                                </td>
-                              </tr>
-                            )
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
+                                ) : (
+                                  <button disabled className="active">
+                                    Out of stock
+                                  </button>
+                                )}
+                              </td>
 
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className="cart-shiping-update-wrapper">
-                      <div className="cart-shiping-update">
-                        <Link
-                          to={process.env.PUBLIC_URL + "/product-all"}
-                        >
-                          Continue Shopping
-                        </Link>
-                      </div>
-                      <div className="cart-clear">
-                        <button onClick={() => deleteAllFromWishlist(addToast)}>
-                          Clear Wishlist
-                        </button>
-                      </div>
-                    </div>
+                              <td className="product-remove">
+                                <button
+                                  onClick={() =>
+                                    deleteFromWishlist(wishlistItem, addToast)
+                                  }
+                                >
+                                  <i className="fa fa-times"></i>
+                                </button>
+                              </td>
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
-              </Fragment>
-            ) : (
+              </div>
+
               <div className="row">
                 <div className="col-lg-12">
-                  <div className="item-empty-area text-center">
-                    <div className="item-empty-area__icon mb-30">
-                      <i className="pe-7s-like"></i>
-                    </div>
-                    <div className="item-empty-area__text">
-                      No items found in wishlist <br />{" "}
-                      <Link to={process.env.PUBLIC_URL + "/product-all"}>
-                        Add Items
+                  <div className="cart-shiping-update-wrapper">
+                    <div className="cart-shiping-update">
+                      <Link
+                        to={process.env.PUBLIC_URL + "/product-all"}
+                      >
+                        Continue Shopping
                       </Link>
+                    </div>
+                    <div className="cart-clear">
+                      <button onClick={() => deleteAllFromWishlist(addToast)}>
+                        Clear Wishlist
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
-            )}
-          </div>
+            </>
+          ) : (
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="item-empty-area text-center">
+                  <div className="item-empty-area__icon mb-30">
+                    <i className="pe-7s-like"></i>
+                  </div>
+                  <div className="item-empty-area__text">
+                    No items found in wishlist <br />{" "}
+                    <Link to={process.env.PUBLIC_URL + "/product-all"}>
+                      Add Items
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-      </LayoutOne>
-    </Fragment>
-  )
+      </div>
+    </Layout>
+  </>)
 }
 
 WishlistPage.propTypes = {

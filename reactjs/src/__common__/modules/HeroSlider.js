@@ -1,7 +1,7 @@
 import React from "react"
 import Swiper from "react-id-swiper"
 import sliderData from "__common__/modules/hero-slider.json"
-import HeroSliderTenSingle from "components/hero-slider/HeroSliderTenSingle"
+import { HeroSliderSingle } from "__common__/index"
 
 const HeroSlider = () => {
   const params = {
@@ -28,6 +28,7 @@ const HeroSlider = () => {
       </button>
     )
   }
+
   return (
     <div className="slider-area">
       <div className="slider-active nav-style-1">
@@ -35,17 +36,17 @@ const HeroSlider = () => {
           {sliderData &&
             sliderData.map((single, key) => {
               return (
-                <HeroSliderTenSingle
+                <HeroSliderSingle
                   data={single}
                   key={key}
                   sliderClass="swiper-slide"
                 />
-              )
-            })}
+              )}
+            )}
         </Swiper>
       </div>
     </div>
   )
 }
 
-export default HeroSlider;
+export default HeroSlider

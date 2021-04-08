@@ -21,6 +21,7 @@ public class Receiver {
       @Column(name="rcv_name") private String rcvName;
       @Column(name="rcv_phone") private String rcvPhone;
       @Column(name="rcv_addr") private String rcvAddr;
+      @Column(name="imp_uid") private String impUid;
       
       @ManyToOne
       @JoinColumn(name="pay_no")

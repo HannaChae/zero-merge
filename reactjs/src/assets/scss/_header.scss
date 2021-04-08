@@ -49,7 +49,6 @@
       }
 
       &.cart-wrap,
-      &.header-compare,
       &.header-wishlist,
       &.account-setting,
       &.header-search {
@@ -558,8 +557,7 @@
     }
   }
   .same-style.cart-wrap,
-  .same-style.header-wishlist,
-  .same-style.header-compare {
+  .same-style.header-wishlist {
     margin-left: 15px;
     @media #{$lg-layout} {
       margin-left: 15px;
@@ -755,7 +753,6 @@
       }
 
       &.cart-wrap,
-      &.header-compare,
       &.header-wishlist,
       &.account-setting,
       &.header-search {
@@ -781,7 +778,6 @@
         }
 
         &.cart-wrap,
-        &.header-compare,
         &.header-wishlist,
         &.account-setting,
         &.header-search {
@@ -806,7 +802,6 @@
         }
 
         &.cart-wrap,
-        &.header-compare,
         &.header-wishlist,
         &.account-setting,
         &.header-search {

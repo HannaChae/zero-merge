@@ -1,93 +1,68 @@
-import React, { useState, Fragment,useEffect } from 'react'
-import { Link, Route, Router } from "react-router-dom";
-import {makeStyles} from '@material-ui/styles'
-import axios from 'axios';
-import { useForm } from 'react-hook-form'
-import  { useHistory} from 'react-router'
-import { BarChartRounded } from '@material-ui/icons';
-const useStyles = makeStyles (()=>({
-        image: {height:40, width:40}
-}))
+import PropTypes from "prop-types"
+import React from "react"
+import { Link } from "react-router-dom"
+import  { useHistory } from "react-router"
+import axios from "axios"
 
-const BlogPostDetail = () => {
-const [board, setBoard] = useState([])
-const URL =  `/board/opt/`+localStorage.getItem('brdNo')
-const Ur = `http://localhost:8080/board/delete/`+localStorage.getItem('brdNo')
-const history = useHistory()
-const [brdNo, setBrdNo] = useState('')
-  const [brdTitle, setBrdTitle] = useState('')
-  const [brdContent, setBrdContent] = useState('')
-  const [brdWrtDate, setBrdWrtDate] = useState('')
-  const [brdRank, setBrdRank] = useState('')
-  const [brdImg, setBrdImg] = useState('')
-  const [brdLike, setBrdLike] = useState('')
-  const [brdNikcname, setBrdNikcname] = useState('')
+const BlogPostDetail = ({ boards }) => {
+  const history = useHistory()
 
-  const { register,handleSubmit} = useForm() 
-
-
-
-useEffect(()=>{
- axios.get(URL, )
- .then(({data}) => {
-  setBoard(data)
-  setBrdNo(data)
- })
- .catch((error) => {
-   alert('실패')
-   throw error;
- })
- 
-},[])
-
-const remove = () => {
-  const removeBlog = window.confirm("해당 글을 삭제하시겠습니까?")
-  if(removeBlog){axios.delete(Ur, {data: brdNo}
-        )
-  .then(resp => {
-    alert('글이 삭제 되었습니다')
-    history.push('/blog-list')
-  })
-  .catch(err => {
-    alert('글 삭제 실패')
-    throw err
-  })
+  const remove = e => {
+    e.preventDefault()
+    const removeConfirm = window.confirm(`해당 게시글을 삭제하시겠습니까?`)
+      if(removeConfirm) {
+        axios({
+          url: 'http://localhost:8080/boards/delete/' + boards.brdNo,
+          method: 'delete',
+          headers: {
+            'Content-Type'  : 'application/json',
+            'Authorization' : 'JWT fefege..'
+          },
+          data: {}
+        })
+        .then(res => {
+          console.log(boards.brdNo + `번 게시글 삭제 성공`)
+          history.push(`/blog-all`)
+        })
+        .catch(err => {
+          console.log(`게시글 삭제 실패: ` + err)
+          throw err
+        })
+      }
   }
-}
-  return (
-    <Fragment>
-        {board ? (<>
-        <div className="blog-details-top">
+
+  return (<>
+      <div className="blog-details-top">
         <div className="blog-details-img">
-        <img
-                src={board.brdImg} alt={board.brdImg} /> 
+          <img src={boards.brdImg} alt={boards.brdImg} /> 
         </div>
+
         <div className="blog-details-content">
           <div className="blog-meta-2">
             <ul>
-              <li>{board.brdWrtDate}</li>
+              <li> {boards.brdWrtDate} </li>
               <li>
-                <Link to={process.env.PUBLIC_URL + "/blog-details-standard"}>
-                   <i className="fa fa-comments-o" />
+                <Link to={process.env.PUBLIC_URL + "/blog-detail"}>
+                  <i className="fa fa-comments-o" />
                 </Link>
               </li>
             </ul>
           </div>
-          <h3 type="text">{board.brdTitle}</h3>
+          <h3 type="text"> {boards.brdTitle} </h3>
+          <h4>{boards.usrNickname}</h4>
           <p>
-          {board.brdContent}
+            {boards.brdContent}
           </p>
-         
         </div>
       </div>
-    
+
       <div className="tag-share">
-      <div>
-      <a href="#" ><Link to={"/blog-update/"+board.brdNo}>글 수정하기</Link></a><br/>
-       <a href="#"  onClick={remove}>글 삭제하기</a>
-       </div>
+        <div>
+          <a href="#" ><Link to={"/blog-update/" + boards.brdNo}>글 수정하기</Link></a><br/>
+          <a href="#" onClick={remove}>글 삭제하기</a>
+        </div>
+        
         <div className="blog-share">
-          
           <span>share :</span>
           <div className="share-social">
             <ul>
@@ -108,18 +83,15 @@ const remove = () => {
               </li>
             </ul>
           </div>
-          
         </div>
-        
       </div>
-      
-      <div className="next-previous-post">
-    
-      </div> </> ) : '해당 게시글을 찾을 수 없습니다.'}
-        </Fragment>
+    <div className="next-previous-post"/>
+  </>)
+}
 
-    
-  );
-};
+BlogPostDetail.propTypes = {
+  location: PropTypes.object,
+  board: PropTypes.object
+}
 
-export default BlogPostDetail;
+export default BlogPostDetail

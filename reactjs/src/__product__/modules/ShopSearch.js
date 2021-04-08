@@ -16,4 +16,4 @@ const ShopSearch = () => {
   )
 }
 
-export default ShopSearch;
+export default ShopSearch

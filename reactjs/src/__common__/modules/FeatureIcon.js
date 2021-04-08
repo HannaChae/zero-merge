@@ -1,7 +1,7 @@
 import PropTypes from "prop-types"
 import React from "react"
 import featureIconData from "__common__/modules/feature-icon.json"
-import FeatureIconTwoSingle from "components/feature-icon/FeatureIconTwoSingle"
+import { FeatureIconSingle } from "__common__/index"
 
 const FeatureIcon = ({ spaceTopClass, spaceBottomClass }) => {
   return (
@@ -15,14 +15,14 @@ const FeatureIcon = ({ spaceTopClass, spaceBottomClass }) => {
           {featureIconData &&
             featureIconData.map((single, key) => {
               return (
-                <FeatureIconTwoSingle
+                <FeatureIconSingle
                   data={single}
                   spaceBottomClass="mb-30"
                   textAlignClass="text-center"
                   key={key}
                 />
-              )
-            })}
+              )}
+            )}
         </div>
       </div>
     </div>
@@ -34,4 +34,4 @@ FeatureIcon.propTypes = {
   spaceTopClass: PropTypes.string
 }
 
-export default FeatureIcon;
+export default FeatureIcon

@@ -1,9 +1,7 @@
 import PropTypes from "prop-types"
 import React from "react"
 import { getIndividualCategories, getIndividualTags } from "helpers/product"
-import ShopCategories from "__product__/modules/ShopCategories"
-import ShopSearch from "__product__/modules/ShopSearch"
-import ShopTag from "__product__/modules/ShopTag"
+import { ShopCategories, ShopSearch, ShopTag } from "__product__/index"
 
 const ShopSidebar = ({ products, getSortParams, sideSpaceClass }) => {
   const uniqueCategories = getIndividualCategories(products)
@@ -32,4 +30,4 @@ ShopSidebar.propTypes = {
   sideSpaceClass: PropTypes.string
 }
 
-export default ShopSidebar;
+export default ShopSidebar

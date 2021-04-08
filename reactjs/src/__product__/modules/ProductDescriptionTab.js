@@ -1,30 +1,30 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import Tab from 'react-bootstrap/Tab'
-import Nav from 'react-bootstrap/Nav'
+import PropTypes from "prop-types"
+import React from "react"
+import Tab from "react-bootstrap/Tab"
+import Nav from "react-bootstrap/Nav"
 
 const ProductDescriptionTab = ({ spaceBottomClass }) => {
   return (
     <div className={`description-review-area ${spaceBottomClass}`}>
-      <div className='container'>
-        <div className='description-review-wrapper'>
-          <Tab.Container defaultActiveKey='productDescription'>
-            <Nav variant='pills' className='description-review-topbar'>
+      <div className="container">
+        <div className="description-review-wrapper">
+          <Tab.Container defaultActiveKey="productDescription">
+            <Nav variant="pills" className="description-review-topbar">
               <Nav.Item>
-                <Nav.Link eventKey='additionalInfo'>
+                <Nav.Link eventKey="additionalInfo">
                   <strong>추가정보</strong>
                 </Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey='productDescription'><strong>제품 상세정보</strong></Nav.Link>
+                <Nav.Link eventKey="productDescription"><strong>제품 상세정보</strong></Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey='productReviews'>REVIEWS ()</Nav.Link>
+                <Nav.Link eventKey="productReviews">REVIEWS ()</Nav.Link>
               </Nav.Item>
             </Nav>
-            <Tab.Content className='description-review-bottom'>
-              <Tab.Pane eventKey='additionalInfo'>
-                <div className='product-anotherinfo-wrapper'>
+            <Tab.Content className="description-review-bottom">
+              <Tab.Pane eventKey="additionalInfo">
+                <div className="product-anotherinfo-wrapper">
                   <ul>
                     <li>
                       <span><strong>배송정보</strong></span> 모든 제품의 배송은 Plastic Free 원칙으로 발송됩니다. (종이박스, 종이완충재, 종이테이프) <br />
@@ -41,8 +41,8 @@ const ProductDescriptionTab = ({ spaceBottomClass }) => {
                   </ul>
                 </div>
               </Tab.Pane>
-              <Tab.Pane eventKey='productDescription'>
-                <div className='product-anotherinfo-wrapper'>
+              <Tab.Pane eventKey="productDescription">
+                <div className="product-anotherinfo-wrapper">
                   <ul>
                     <li>
                       <span><strong>Zero Waste 난이도</strong></span> ★★☆☆☆ 　easy !
@@ -62,39 +62,39 @@ const ProductDescriptionTab = ({ spaceBottomClass }) => {
                   </ul>
                 </div>
               </Tab.Pane>
-              <Tab.Pane eventKey='productReviews'>
-                <div className='row'>
-                  <div className='col-lg-7'>
-                    <div className='review-wrapper'>
-                      <div className='single-review'>
-                        <div className='review-img'>
+              <Tab.Pane eventKey="productReviews">
+                <div className="row">
+                  <div className="col-lg-7">
+                    <div className="review-wrapper">
+                      <div className="single-review">
+                        <div className="review-img">
                           <img
                             src={
                               process.env.PUBLIC_URL +
-                              '/assets/img/testimonial/1.jpg'
+                              "/assets/img/testimonial/1.jpg"
                             }
-                            alt=''
+                            alt=""
                           />
                         </div>
-                        <div className='review-content'>
-                          <div className='review-top-wrap'>
-                            <div className='review-left'>
-                              <div className='review-name'>
+                        <div className="review-content">
+                          <div className="review-top-wrap">
+                            <div className="review-left">
+                              <div className="review-name">
                                 <h4>Reply Writter</h4>
                               </div>
-                              <div className='review-rating'>
-                                <i className='fa fa-star' />
-                                <i className='fa fa-star' />
-                                <i className='fa fa-star' />
-                                <i className='fa fa-star' />
-                                <i className='fa fa-star' />
+                              <div className="review-rating">
+                                <i className="fa fa-star" />
+                                <i className="fa fa-star" />
+                                <i className="fa fa-star" />
+                                <i className="fa fa-star" />
+                                <i className="fa fa-star" />
                               </div>
                             </div>
-                            <div className='review-left'>
+                            <div className="review-left">
                               <button>Reply</button>
                             </div>
                           </div>
-                          <div className='review-bottom'>
+                          <div className="review-bottom">
                             <p>
                               Vestibulum ante ipsum primis aucibus orci
                               luctustrices posuere cubilia Curae Suspendisse
@@ -104,35 +104,35 @@ const ProductDescriptionTab = ({ spaceBottomClass }) => {
                           </div>
                         </div>
                       </div>
-                      <div className='single-review child-review'>
-                        <div className='review-img'>
+                      <div className="single-review child-review">
+                        <div className="review-img">
                           <img
                             src={
                               process.env.PUBLIC_URL +
-                              '/assets/img/testimonial/2.jpg'
+                              "/assets/img/testimonial/2.jpg"
                             }
-                            alt=''
+                            alt=""
                           />
                         </div>
-                        <div className='review-content'>
-                          <div className='review-top-wrap'>
-                            <div className='review-left'>
-                              <div className='review-name'>
+                        <div className="review-content">
+                          <div className="review-top-wrap">
+                            <div className="review-left">
+                              <div className="review-name">
                                 <h4>White Lewis</h4>
                               </div>
-                              <div className='review-rating'>
-                                <i className='fa fa-star' />
-                                <i className='fa fa-star' />
-                                <i className='fa fa-star' />
-                                <i className='fa fa-star' />
-                                <i className='fa fa-star' />
+                              <div className="review-rating">
+                                <i className="fa fa-star" />
+                                <i className="fa fa-star" />
+                                <i className="fa fa-star" />
+                                <i className="fa fa-star" />
+                                <i className="fa fa-star" />
                               </div>
                             </div>
-                            <div className='review-left'>
+                            <div className="review-left">
                               <button>Reply</button>
                             </div>
                           </div>
-                          <div className='review-bottom'>
+                          <div className="review-bottom">
                             <p>
                               Vestibulum ante ipsum primis aucibus orci
                               luctustrices posuere cubilia Curae Suspendisse
@@ -144,40 +144,40 @@ const ProductDescriptionTab = ({ spaceBottomClass }) => {
                       </div>
                     </div>
                   </div>
-                  <div className='col-lg-5'>
-                    <div className='ratting-form-wrapper pl-50'>
+                  <div className="col-lg-5">
+                    <div className="ratting-form-wrapper pl-50">
                       <h3>Add a Review</h3>
-                      <div className='ratting-form'>
-                        <form action='#'>
-                          <div className='star-box'>
+                      <div className="ratting-form">
+                        <form action="#">
+                          <div className="star-box">
                             <span>Your rating:</span>
-                            <div className='ratting-star'>
-                              <i className='fa fa-star' />
-                              <i className='fa fa-star' />
-                              <i className='fa fa-star' />
-                              <i className='fa fa-star' />
-                              <i className='fa fa-star' />
+                            <div className="ratting-star">
+                              <i className="fa fa-star" />
+                              <i className="fa fa-star" />
+                              <i className="fa fa-star" />
+                              <i className="fa fa-star" />
+                              <i className="fa fa-star" />
                             </div>
                           </div>
-                          <div className='row'>
-                            <div className='col-md-6'>
-                              <div className='rating-form-style mb-10'>
-                                <input placeholder='Name' type='text' />
+                          <div className="row">
+                            <div className="col-md-6">
+                              <div className="rating-form-style mb-10">
+                                <input placeholder="Name" type="text" />
                               </div>
                             </div>
-                            <div className='col-md-6'>
-                              <div className='rating-form-style mb-10'>
-                                <input placeholder='Email' type='email' />
+                            <div className="col-md-6">
+                              <div className="rating-form-style mb-10">
+                                <input placeholder="Email" type="email" />
                               </div>
                             </div>
-                            <div className='col-md-12'>
-                              <div className='rating-form-style form-submit'>
+                            <div className="col-md-12">
+                              <div className="rating-form-style form-submit">
                                 <textarea
-                                  name='Your Review'
-                                  placeholder='Message'
-                                  defaultValue={''}
+                                  name="Your Review"
+                                  placeholder="Message"
+                                  defaultValue={""}
                                 />
-                                <input type='submit' defaultValue='Submit' />
+                                <input type="submit" defaultValue="Submit" />
                               </div>
                             </div>
                           </div>

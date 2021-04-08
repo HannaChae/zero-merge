@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import React from "react"
-import ProductgridList from "__product__/modules/ProductgridList"
+import { ProductgridList } from "__product__/index"
 
 const ShopProducts = ({ products, layout }) => {
   return (
@@ -17,4 +17,4 @@ ShopProducts.propTypes = {
   products: PropTypes.array
 }
 
-export default ShopProducts;
+export default ShopProducts

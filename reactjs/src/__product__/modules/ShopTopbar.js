@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
-import React, { Fragment } from "react"
-import ShopTopAction from "__product__/modules/ShopTopAction"
+import React from "react"
+import { ShopTopAction } from "__product__/index"
 
 const ShopTopbar = ({
   getLayout,
@@ -8,17 +8,15 @@ const ShopTopbar = ({
   productCount,
   sortedProductCount
 }) => {
-  return (
-    <Fragment>
-      {/* shop top action */}
-      <ShopTopAction
-        getLayout={getLayout}
-        getFilterSortParams={getFilterSortParams}
-        productCount={productCount}
-        sortedProductCount={sortedProductCount}
-      />
-    </Fragment>
-  )
+  return (<>
+    {/* shop top action */}
+    <ShopTopAction
+      getLayout={getLayout}
+      getFilterSortParams={getFilterSortParams}
+      productCount={productCount}
+      sortedProductCount={sortedProductCount}
+    />
+  </>)
 }
 
 ShopTopbar.propTypes = {
@@ -28,4 +26,4 @@ ShopTopbar.propTypes = {
   sortedProductCount: PropTypes.number
 }
 
-export default ShopTopbar;
+export default ShopTopbar

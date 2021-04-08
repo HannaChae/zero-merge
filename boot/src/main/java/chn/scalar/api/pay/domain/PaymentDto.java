@@ -9,8 +9,7 @@ import lombok.Data;
 public class PaymentDto {
 	 private long payNo;
 	 private String payPrice;
-	 private long payAmount;
-	 private String dvrFee;
+	 private String payInfo;
 	 private String payDate;
 	 private String payState;
 }

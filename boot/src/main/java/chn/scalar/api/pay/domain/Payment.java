@@ -25,8 +25,7 @@ import lombok.Getter;
 public class Payment {
    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="pay_no") private long payNo;
    @Column(name="pay_price") private String payPrice;
-   @Column(name="pay_amount") private long payAmount;
-   @Column(name="dvr_fee") private String dvrFee;
+   @Column(name="pay_info") private String payInfo;
    @Column(name="pay_date") private String payDate;
    @Column(name="pay_state") private String payState;
    

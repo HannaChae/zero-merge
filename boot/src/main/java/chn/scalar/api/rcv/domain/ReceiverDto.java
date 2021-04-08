@@ -13,5 +13,6 @@ public class ReceiverDto {
 	 private String rcvName;
      private String rcvPhone;
      private String rcvAddr;
+     private String impUid;
      
 }

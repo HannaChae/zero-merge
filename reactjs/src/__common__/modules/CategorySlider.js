@@ -2,11 +2,10 @@ import PropTypes from "prop-types"
 import React from "react"
 import Swiper from "react-id-swiper"
 import categoryData from "__common__/modules/category-data.json"
-import CategoryTwoSingle from "components/category/CategoryTwoSingle"
-import SectionTitleFour from "components/section-title/SectionTitleFour"
+import { CategorySingle, SectionTitle } from "__common__/index"
 
 const CategorySlider = ({ spaceTopClass, spaceBottomClass }) => {
-  // swiper slider settings
+  /* swiper slider settings */
   const settings = {
     loop: false,
     spaceBetween: 30,
@@ -26,6 +25,7 @@ const CategorySlider = ({ spaceTopClass, spaceBottomClass }) => {
       }
     }
   }
+  
   return (
     <div
       className={`collections-area ${spaceTopClass ? spaceTopClass : ""}  ${
@@ -34,13 +34,13 @@ const CategorySlider = ({ spaceTopClass, spaceBottomClass }) => {
     >
       <div className="container">
         {/* section title */}
-        <SectionTitleFour titleText="Collections" spaceBottomClass="mb-40" />
+        <SectionTitle titleText="Collections" spaceBottomClass="mb-40" />
         <div className="collection-wrap">
           <div className="collection-active">
             <Swiper {...settings}>
               {categoryData && categoryData.map((single, key) => {
                   return (
-                    <CategoryTwoSingle
+                    <CategorySingle
                       data={single}
                       key={key}
                       sliderClass="swiper-slide"
@@ -60,4 +60,4 @@ CategorySlider.propTypes = {
   spaceTopClass: PropTypes.string
 }
 
-export default CategorySlider;
+export default CategorySlider

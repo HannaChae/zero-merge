@@ -8,8 +8,6 @@ export const addToCart = (
   item,
   addToast,
   quantityCount,
-  selectedProductColor,
-  selectedProductSize
 ) => {
   return dispatch => {
     if (addToast) {
@@ -19,17 +17,7 @@ export const addToCart = (
       type: ADD_TO_CART,
       payload: {
         ...item,
-        quantity: quantityCount,
-        selectedProductColor: selectedProductColor
-          ? selectedProductColor
-          : item.selectedProductColor
-          ? item.selectedProductColor
-          : null,
-        selectedProductSize: selectedProductSize
-          ? selectedProductSize
-          : item.selectedProductSize
-          ? item.selectedProductSize
-          : null
+        quantity: quantityCount
       }
     });
   };
@@ -69,12 +57,10 @@ export const deleteAllFromCart = addToast => {
 };
 
 // get stock of cart item
-export const cartItemStock = (item, color, size) => {
+export const cartItemStock = (item) => {
   if (item.stock) {
     return item.stock;
   } else {
     return item.variation
-      .filter(single => single.color === color)[0]
-      .size.filter(single => single.name === size)[0].stock;
   }
 };
