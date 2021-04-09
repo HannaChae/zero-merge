@@ -6,30 +6,49 @@ import Card, { CardBody } from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import LayoutOne from "layouts/LayoutOne";
 import Breadcrumb from "wrappers/breadcrumb/Breadcrumb";
-import axios from 'axios';
+import axios from 'axios';
 
 
 const MyAccount = ({ location }) => {
     const [payment, setPayment] = useState([])
     const [receiver, setReceiver] = useState([])
+    const [ payPrice, setPayPrice ] = useState('')
+    const [ payState, setPayState] = useState('')
+    const [ payDate, setPayDate] = useState('')
 
- useEffect(()=>{
-   axios.get("http://localhost:8080/payment/all", {
-    headers: {
-      'Content-Type'  : 'application/json',
-      'Authorization' : 'JWT fefege..'
-    }
-   })
-   .then(({ data }) => setPayment(data))
-   .catch((error) => {
-     alert('실패')
-     throw error;
-   })
-  },[])
+    useEffect(()=>{
+      axios.get("http://localhost:8080/payment/all", { 
+        headers: {
+        'Content-Type'  : 'application/json',
+        'Authorization' : 'JWT fefege..'
+      }
+    },)
+      .then((res) => {
+        setPayment(res.data)})
+      .catch((err) => {
+        alert('실패')
+        throw err;
+      })
+    }, [])
+
+    useEffect(()=>{
+      axios.get("http://localhost:8080/receiver/all", { 
+        headers: {
+        'Content-Type'  : 'application/json',
+        'Authorization' : 'JWT fefege..'
+      }
+    },)
+      .then((res) => {
+        setReceiver(res.data)})
+      .catch((err) => {
+        alert('실패')
+        throw err;
+      })
+    }, [])
   
 
 
-  const year = ["전체기간"];
+  const year = ["전체기간", "1주", "1개월", "3개월", "1년"];
   const { pathname } = location;
 
   return (
@@ -77,41 +96,55 @@ const MyAccount = ({ location }) => {
                             </div>
                           </article>
                             </div>
-                            {payment.map((card, index) => (
+                             
                             <div className="entries-wrapper">
                               <div className="row">
                                 <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
                                   <div className="entries-info text-center">
-                                      <div key={index}>
+                                    {payment.map(card => (
+                                      <div>
+                                        <h4>결제정보</h4>
                                         <div>
-                                        {card.payDate}
+                                        결제시간 {card.payDate}
                                         </div>
                                         <div>
-                                        {card.payPrice}
+                                        결제금액 {card.payPrice}
                                         </div>
                                         <div>
-                                        {card.payState}
-                                        </div>
-                                        <div>
-                                        {card.prdNo}
+                                        주문상태 {card.payState}
                                         </div>
                                       </div>
+                                      ))}
+                                    {receiver.map(card => (
+                                      <div>
+                                        <h4>배송지 정보</h4>
+                                        <div>
+                                        받는 사람 {card.rcvName}
+                                        </div>
+                                        <div>
+                                        연락처 {card.rcvPhone}
+                                        </div>
+                                        <div>
+                                        주소 {card.rcvAddr}
+                                        </div>
+                                      </div>
+                                      ))}  
                                   </div>
                                 </div>
                                 <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
                                   <div className="entries-edit-delete text-center">
-                                    <button className="edit">교환/환불</button>
                                     <form action="http://info.sweettracker.co.kr/tracking/5" method="post">
-                                        <input type="hidden" class="form-control" id="t_key" name="t_key" value="ymJmuSQTWNb5HVh5nip8cw"/>
-                                        <input type="hidden" class="form-control" name="t_code" id="t_code" value="04"/>
-                                        <input type="hidden" class="form-control" name="t_invoice" id="t_invoice" value="387842034141"/>
-                                      <button type="submit" class="btn btn-default">배송조회</button>
+                                    <button className="edit">교환/환불</button>
+                                    <button type="submit">배송조회</button>
+                                        <input type="hidden" id="t_key" name="t_key" value="ymJmuSQTWNb5HVh5nip8cw"/>
+                                        <input type="hidden" name="t_code" id="t_code" value="04"/>
+                                        <input type="hidden" name="t_invoice" id="t_invoice" value="387842034141"/>
                                   </form>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            ))}
+
                             <div className="billing-back-btn">
                               <div className="billing-btn">
                                 <button type="submit">Continue</button>

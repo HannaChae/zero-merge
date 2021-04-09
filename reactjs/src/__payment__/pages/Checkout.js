@@ -23,25 +23,13 @@ const Checkout = ({ location, cartItems, currency}) => {
   const [usrName, setUsrName] = useState('')
   const [usrAddr, setUsrAddr] = useState('')
   const [usrPhone, setUsrPhone] = useState('')
-  const [user, setUser] = useState([])
+  const [user, setUser] = useState({})
   const [prdName, setPrdName] = useState([])
   const history = useHistory()
 
   useEffect(()=>{
-    axios.get("http://localhost:8080/usr/all", { 
-      headers: {
-      'Content-Type'  : 'application/json',
-      'Authorization' : 'JWT fefege..'
-    }
-  },)
-    .then(({ data }) => setUser(data))
-    .catch((error) => {
-      alert('실패')
-      throw error;
-    })
-   },[])
-
-
+    setUser(JSON.parse(localStorage.getItem("user")))
+  }, [])
 
   const [ addr, setAddr ] = useState('')
   const [ extraAddr, setExtraAddr ] = useState('')
@@ -198,28 +186,24 @@ const Checkout = ({ location, cartItems, currency}) => {
                     <h3>User Info</h3>
                     <div className="row">
                       <ul>
-                        {user.map(i => (
-                          <li key = {i.usrNo}>
-                            <div className="col-lg-6 col-md-6">
-                              <div className="billing-info mb-20">
-                                <label>Name</label>
-                                <input type="text" value={i.usrName} readOnly/>
-                              </div>
-                            </div>
-                            <div className="col-lg-6 col-md-6">
-                              <div className="billing-info mb-20">
-                                <label>Phone</label>
-                                <input type="text" value={i.usrPhone} readOnly/>
-                              </div>
-                            </div>
-                            <div className="col-lg-12">
-                              <div className="billing-info mb-20">
-                                <label>Address</label>
-                                <input type="text" value={i.usrAddr} readOnly/>
-                              </div>
-                            </div>
-                          </li>
-                        ))}
+                        <div className="col-lg-6 col-md-6">
+                          <div className="billing-info mb-20">
+                            <label>Name</label>
+                            <input type="text" value={user.usrName || ''} readOnly/>
+                          </div>
+                        </div>
+                        <div className="col-lg-6 col-md-6">
+                          <div className="billing-info mb-20">
+                            <label>Phone</label>
+                            <input type="text" value={user.usrPhone || ''} readOnly/>
+                          </div>
+                        </div>
+                        <div className="col-lg-12">
+                          <div className="billing-info mb-20">
+                            <label>Address</label>
+                            <input type="text" value={user.usrAddr || ''} readOnly/>
+                          </div>
+                        </div>
                       </ul>
                     </div>
                     <h3>Billing Details</h3>

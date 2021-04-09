@@ -1,5 +1,6 @@
 package chn.scalar.api.usr.controller;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import io.swagger.annotations.*;
@@ -37,7 +38,7 @@ public class UserController{
 	@ApiResponses(value = { //
 			@ApiResponse(code = 400, message = "Something went wrong"), //
 			@ApiResponse(code = 422, message = "Invalid username/password supplied") })
-	public ResponseEntity<String> signin(@RequestBody UserVo user) {
+	public ResponseEntity<Map<String, Object>> signin(@RequestBody UserVo user) {
 		logger.info("User Login Info: " + user.toString());
 		return ResponseEntity.ok(userService.signin(user.getUsername(), user.getPassword()));
 	}

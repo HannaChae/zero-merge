@@ -5,6 +5,7 @@ import chn.scalar.api.usr.domain.UserDto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -21,7 +22,7 @@ public interface UserService {
 	public String createTempPassword();
 
 	// security default method
-	public String signin(String username, String password);
+	public Map<String, Object> signin(String username, String password);
 	public String signup(UserVo user);
 	public void delete(String username);
 	public UserVo search(String username);
