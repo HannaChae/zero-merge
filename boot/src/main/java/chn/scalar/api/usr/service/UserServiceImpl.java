@@ -132,11 +132,13 @@ public class UserServiceImpl extends AbstractService<UserVo> implements UserServ
 			//	manager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 			System.out.println("ID:  "+username);
 			UserVo user = userRepository.findByUsername(username);
+			user.setPayments(userRepository.findUserInfo(user.getUsrNo()));
 			List<Role> roles = user.getRoles();
 			map.put("token", provider.createToken(username, roles));
 			map.put("user", user);
 			String tok = provider.createToken(username, userRepository.findByUsername(username).getRoles());
 			System.out.println("token :: "+tok);
+			System.out.println(user.toString());
 			return map;
 		} catch (AuthenticationException e) {
 			throw new SecurityRuntimeException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);

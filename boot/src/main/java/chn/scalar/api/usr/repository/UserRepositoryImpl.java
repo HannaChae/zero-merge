@@ -1,15 +1,20 @@
 package chn.scalar.api.usr.repository;
 
+import chn.scalar.api.pay.domain.Payment;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import chn.scalar.api.usr.domain.UserVo;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
+
 
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
 import static chn.scalar.api.usr.domain.QUserVo.userVo;
+import static chn.scalar.api.rcv.domain.QReceiver.receiver;
+import static chn.scalar.api.pay.domain.QPayment.payment;
+import static chn.scalar.api.rcv.domain.QReceiver.receiver;
 
 @Repository
 public class UserRepositoryImpl extends QuerydslRepositorySupport implements IUserRepository {
@@ -30,6 +35,24 @@ public class UserRepositoryImpl extends QuerydslRepositorySupport implements IUs
 				.fetch();
 
 	}
+
+	@Override
+	public List<Payment> findUserInfo(long num) {
+		return queryFactory.selectFrom(payment)
+				.join(payment.userVo, userVo)
+				.where(userVo.usrNo.eq(num)).fetch();
+	}
+
+//	@Override
+//	public UserVo findPaymentInfo(String username) {
+//		return queryFactory.select(userVo.usrName, userVo.usrAddr, userVo.usrPhone, receiver.rcvName)
+//				.from(userVo)
+//				.join(userVo.payments, payment)
+//				.where(payment.payNo.eq(userVo.usrNo))
+//				.join(payment.payNo, receiver)
+//				.where(receiver.payment.payNo.eq(payment.payNo))
+//				.fetchOne();
+//	}
 
 
 	@Override

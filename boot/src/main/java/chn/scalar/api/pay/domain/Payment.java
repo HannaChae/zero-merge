@@ -22,16 +22,19 @@ import chn.scalar.api.usr.domain.UserVo;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Entity @Getter
 public class Payment {
    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name="pay_no") private long payNo;
    @Column(name="pay_price") private String payPrice;
    @Column(name="pay_info") private String payInfo;
-   @Column(name="dvr_fee") private String dvrFee;
    @Column(name="pay_date") private String payDate;
    @Column(name="pay_state") private String payState;
-   
+   @Column(name="user_number") private long userNumber;
+
+   @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
    @ManyToOne
    @JoinColumn(name="usr_no")
    private UserVo userVo;
@@ -49,5 +52,15 @@ public class Payment {
    
    @OneToOne(mappedBy="payment")
    private Cart cart;
+
+  public void setUser(UserVo userVo){
+     this.userVo = userVo;
+     userVo.getPayments().add(this);
+  }
+
+
+
+
+
    
 }

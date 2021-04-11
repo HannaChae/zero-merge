@@ -9,26 +9,35 @@ import Breadcrumb from "wrappers/breadcrumb/Breadcrumb";
 import axios from 'axios';
 
 
-const MyAccount = ({ location }) => {
-    const [payment, setPayment] = useState([])
-    const [receiver, setReceiver] = useState([])
+const MyAccountPage = ({ location }) => {
+
+    
+    const [ user, setUser ] = useState({})
+    const [ payment, setPayment ] = useState([])
+    const [ payments, setPayments ] = useState([])
+    const [ receiver, setReceiver ] = useState([])
     const [ payPrice, setPayPrice ] = useState('')
     const [ payState, setPayState] = useState('')
-    const [ payDate, setPayDate] = useState('')
-
+    const [ payDate, setPayDate] = useState('')  
+    
+    // useEffect(()=>{
+    //   // const arr = localStorage.getItem("payments", )
+    //   // setPayments(JSON.parse(localStorage.getItem("user").payments))
+    //   axios.get("http://localhost:8080/payment/all", { 
+    //     headers: {
+    //     'Content-Type'  : 'application/json',
+    //     'Authorization' : 'JWT fefege..'
+    //   }
+    //     },)
+    //     .then((res) => {
+    //       setPayment(res.data)})
+    //     .catch((err) => {
+    //       alert('실패')
+    //       throw err;
+    //     })
+    // }, [])
     useEffect(()=>{
-      axios.get("http://localhost:8080/payment/all", { 
-        headers: {
-        'Content-Type'  : 'application/json',
-        'Authorization' : 'JWT fefege..'
-      }
-    },)
-      .then((res) => {
-        setPayment(res.data)})
-      .catch((err) => {
-        alert('실패')
-        throw err;
-      })
+      setPayments(JSON.parse(localStorage.getItem("user", payments)))
     }, [])
 
     useEffect(()=>{
@@ -101,11 +110,11 @@ const MyAccount = ({ location }) => {
                               <div className="row">
                                 <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
                                   <div className="entries-info text-center">
-                                    {payment.map(card => (
+                                    {/* {user.map(card => (
                                       <div>
                                         <h4>결제정보</h4>
                                         <div>
-                                        결제시간 {card.payDate}
+                                         {card.user}
                                         </div>
                                         <div>
                                         결제금액 {card.payPrice}
@@ -114,7 +123,7 @@ const MyAccount = ({ location }) => {
                                         주문상태 {card.payState}
                                         </div>
                                       </div>
-                                      ))}
+                                      ))} */}
                                     {receiver.map(card => (
                                       <div>
                                         <h4>배송지 정보</h4>
@@ -165,8 +174,8 @@ const MyAccount = ({ location }) => {
   );
 };
 
-MyAccount.propTypes = {
+MyAccountPage.propTypes = {
   location: PropTypes.object
 };
 
-export default MyAccount;
+export default MyAccountPage;

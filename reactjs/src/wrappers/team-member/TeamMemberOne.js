@@ -14,8 +14,8 @@ const TeamMemberOne = ({ spaceTopClass, spaceBottomClass }) => {
       <div className="container">
         {/* section title */}
         <SectionTitleTwo
-          titleText="Team Members"
-          subTitleText="Lorem ipsum dolor sit amet conse ctetu."
+          titleText="주문이 완료되었습니다"
+          subTitleText="zero-shop을 이용해주셔서 감사합니다."
           positionClass="text-center"
           spaceClass="mb-60"
         />
