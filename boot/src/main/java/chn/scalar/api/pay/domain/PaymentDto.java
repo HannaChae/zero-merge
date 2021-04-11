@@ -12,4 +12,7 @@ public class PaymentDto {
 	 private String payInfo;
 	 private String payDate;
 	 private String payState;
+	 private String rcvName;
+	 private String rcvPhone;
+	 private String rcvAddr;
 }

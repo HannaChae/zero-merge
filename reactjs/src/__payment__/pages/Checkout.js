@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import MetaTags from "react-meta-tags";
 import { connect } from "react-redux";
@@ -82,7 +82,7 @@ const Checkout = ({ location, cartItems, currency}) => {
       pay_method: 'card',                           // 결제수단
       merchant_uid: `mid_${new Date().getTime()}`,   // 주문번호
       amount: 1000,                                 // 결제금액
-      name: '아임포트 결제 데이터 분석',                  // 주문명
+      name: `${payInfo.prdName}`,                  // 주문명
       buyer_name: `${user.usrName}`,                           // 구매자 이름
       buyer_tel: `${user.usrPhone}`,                   // 구매자 전화번호
       buyer_addr: `${user.usrAddr}`                 // 구매자 주소
@@ -101,25 +101,7 @@ const Checkout = ({ location, cartItems, currency}) => {
         payPrice: "",
         payInfo: "",
         payDate: nowTime,
-        payState: "결제완료"
-      }
-    })
-    .then(res => {
-      alert(`성공`)
-    })
-    .catch(err => {
-      console.log(`실패: ` + err)
-      throw err
-    })
-
-    axios({
-      url: 'http://localhost:8080/receiver/save', 
-      method: 'post',
-      headers: {
-        'Content-Type'  : 'application/json',
-        'Authorization' : 'JWT fefege..'
-      },
-      data: {
+        payState: "결제완료",
         rcvName,
         rcvPhone,
         rcvAddr: `${postcode} ${addr} ${extraAddr}`+` `+fullAddr,
@@ -132,6 +114,7 @@ const Checkout = ({ location, cartItems, currency}) => {
       console.log(`실패: ` + err)
       throw err
     })
+
 }
   /* 3. 콜백 함수 정의하기 */
   function callback(response) {

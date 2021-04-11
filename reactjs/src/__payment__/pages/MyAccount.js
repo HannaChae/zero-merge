@@ -47,10 +47,10 @@ const MyAccount = ({ location }) => {
       })
     }, [])
   
-  const update = e => {
-    e.preventDefault()
-    axios.put("http://localhost")
-  }
+  // const update = e => {
+  //   e.preventDefault()
+  //   axios.put("http://localhost")
+  // }
   // axios({
   //   url: 'http://localhost:8080/boards/update/' + localStorage.getItem(`brdNo`),
   //   method: 'put',
@@ -160,8 +160,8 @@ const MyAccount = ({ location }) => {
                                 <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
                                   <div className="entries-edit-delete text-center">
                                     <form action="http://info.sweettracker.co.kr/tracking/5" method="post">
-                                    <button className="edit" onClick={refund}>교환/환불</button>
-                                    <button className="edit" onClick={update}>배송지 변경</button>
+                                    {/* <button className="edit" onClick={refund}>교환/환불</button>
+                                    <button className="edit" onClick={update}>배송지 변경</button> */}
                                     <button type="submit">배송조회</button>
                                         <input type="hidden" id="t_key" name="t_key" value="ymJmuSQTWNb5HVh5nip8cw"/>
                                         <input type="hidden" name="t_code" id="t_code" value="04"/>
