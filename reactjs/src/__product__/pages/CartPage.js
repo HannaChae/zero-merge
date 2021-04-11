@@ -1,5 +1,5 @@
 import PropTypes from "prop-types"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { useToasts } from "react-toast-notifications"
 import MetaTags from "react-meta-tags"

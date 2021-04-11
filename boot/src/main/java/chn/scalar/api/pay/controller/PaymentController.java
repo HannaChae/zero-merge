@@ -31,8 +31,6 @@ public class PaymentController extends AbstractController<Payment> {
 	
 	@PostMapping("/save")
 	public ResponseEntity<Long> save(@RequestBody Payment t) {
-		System.out.println("................"+t.toString());
-
 		return ResponseEntity.ok(service.save(t));
 	}
 

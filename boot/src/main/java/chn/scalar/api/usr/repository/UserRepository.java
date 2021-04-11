@@ -3,7 +3,6 @@ package chn.scalar.api.usr.repository;
 import java.util.List;
 import java.util.Optional;
 
-import chn.scalar.api.pay.domain.Payment;
 import chn.scalar.api.usr.domain.UserVo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +19,6 @@ interface IUserRepository {
 	public Optional<UserVo> updatePassword(String password);
 	public void updateUserPassword(String id, String password);
 	public List<UserVo> findAllUser();
-	List<Payment> findUserInfo(long num);
-	// UserVo findPaymentInfo(String username);
 }
 
 

@@ -7,37 +7,29 @@ import Accordion from "react-bootstrap/Accordion";
 import LayoutOne from "layouts/LayoutOne";
 import Breadcrumb from "wrappers/breadcrumb/Breadcrumb";
 import axios from 'axios';
+import { RefreshRounded } from "@material-ui/icons";
 
 
-const MyAccountPage = ({ location }) => {
-
-    
-    const [ user, setUser ] = useState({})
-    const [ payment, setPayment ] = useState([])
-    const [ payments, setPayments ] = useState([])
-    const [ receiver, setReceiver ] = useState([])
+const MyAccount = ({ location }) => {
+    const [payment, setPayment] = useState([])
+    const [receiver, setReceiver] = useState([])
     const [ payPrice, setPayPrice ] = useState('')
     const [ payState, setPayState] = useState('')
-    const [ payDate, setPayDate] = useState('')  
-    
-    // useEffect(()=>{
-    //   // const arr = localStorage.getItem("payments", )
-    //   // setPayments(JSON.parse(localStorage.getItem("user").payments))
-    //   axios.get("http://localhost:8080/payment/all", { 
-    //     headers: {
-    //     'Content-Type'  : 'application/json',
-    //     'Authorization' : 'JWT fefege..'
-    //   }
-    //     },)
-    //     .then((res) => {
-    //       setPayment(res.data)})
-    //     .catch((err) => {
-    //       alert('실패')
-    //       throw err;
-    //     })
-    // }, [])
+    const [ payDate, setPayDate] = useState('')
+
     useEffect(()=>{
-      setPayments(JSON.parse(localStorage.getItem("user", payments)))
+      axios.get("http://localhost:8080/payment/all", { 
+        headers: {
+        'Content-Type'  : 'application/json',
+        'Authorization' : 'JWT fefege..'
+      }
+    },)
+      .then((res) => {
+        setPayment(res.data)})
+      .catch((err) => {
+        alert('실패')
+        throw err;
+      })
     }, [])
 
     useEffect(()=>{
@@ -54,6 +46,31 @@ const MyAccountPage = ({ location }) => {
         throw err;
       })
     }, [])
+  
+  const update = e => {
+    e.preventDefault()
+    axios.put("http://localhost")
+  }
+  // axios({
+  //   url: 'http://localhost:8080/boards/update/' + localStorage.getItem(`brdNo`),
+  //   method: 'put',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'Authorization': 'JWT fefege..'
+  //   },
+  //   data: { 
+  //     brdNo: localStorage.getItem(`brdNo`), 
+  //     brdTitle, brdContent, brdWrtDate, brdRank, brdImg, brdLike, usrNickname
+  //   }
+  // })
+  // .then((res) => {
+  //   console.log(boards.brdNo + `번 게시글 수정 성공`)
+  //   history.push(`/blog-all`)
+  // })
+  // .catch(err => {
+  //   console.log(boards.brdNo + `번 게시글 수정 실패: ` + err)
+  //   throw err
+  // })  
   
 
 
@@ -110,11 +127,11 @@ const MyAccountPage = ({ location }) => {
                               <div className="row">
                                 <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
                                   <div className="entries-info text-center">
-                                    {/* {user.map(card => (
+                                    {payment.map(card => (
                                       <div>
                                         <h4>결제정보</h4>
                                         <div>
-                                         {card.user}
+                                        결제시간 {card.payDate}
                                         </div>
                                         <div>
                                         결제금액 {card.payPrice}
@@ -123,7 +140,7 @@ const MyAccountPage = ({ location }) => {
                                         주문상태 {card.payState}
                                         </div>
                                       </div>
-                                      ))} */}
+                                      ))}
                                     {receiver.map(card => (
                                       <div>
                                         <h4>배송지 정보</h4>
@@ -143,7 +160,8 @@ const MyAccountPage = ({ location }) => {
                                 <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
                                   <div className="entries-edit-delete text-center">
                                     <form action="http://info.sweettracker.co.kr/tracking/5" method="post">
-                                    <button className="edit">교환/환불</button>
+                                    <button className="edit" onClick={refund}>교환/환불</button>
+                                    <button className="edit" onClick={update}>배송지 변경</button>
                                     <button type="submit">배송조회</button>
                                         <input type="hidden" id="t_key" name="t_key" value="ymJmuSQTWNb5HVh5nip8cw"/>
                                         <input type="hidden" name="t_code" id="t_code" value="04"/>
@@ -174,8 +192,8 @@ const MyAccountPage = ({ location }) => {
   );
 };
 
-MyAccountPage.propTypes = {
+MyAccount.propTypes = {
   location: PropTypes.object
 };
 
-export default MyAccountPage;
+export default MyAccount;

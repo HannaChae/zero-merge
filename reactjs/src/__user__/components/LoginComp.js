@@ -30,7 +30,6 @@ const Login = () => {
       if(res.data.token) {
         localStorage.setItem("user", JSON.stringify(res.data.user))
         localStorage.setItem("token", res.data.token.accessToken)
-        // localStorage.setItem("payment", JSON.stringify(res.data.payment))
         console.log(`유저 로그인 성공_id: ` + username)
         history.push(`/`)
       }else {

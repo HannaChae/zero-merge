@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 import chn.scalar.api.pay.domain.Payment;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
-import lombok.ToString;
 
 @Entity
-@Data @ToString
+@Data
 public class UserVo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,7 +50,6 @@ public class UserVo {
 	@ElementCollection(fetch = FetchType.EAGER)
 	List<Role> roles;
 
-	@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
 	@OneToMany(mappedBy = "userVo")
 	private List<Payment> payments = new ArrayList<>();
 
