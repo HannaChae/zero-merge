@@ -7,14 +7,7 @@ import chn.scalar.api.cmm.controller.AbstractController;
 import chn.scalar.api.pay.domain.Payment;
 import chn.scalar.api.pay.service.PaymentServiceImpl;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import chn.scalar.api.cmm.controller.AbstractController;
 import chn.scalar.api.pay.domain.Payment;
@@ -37,6 +30,16 @@ public class PaymentController extends AbstractController<Payment> {
 	@DeleteMapping("/delete")
 	public ResponseEntity<Long> delete(@RequestBody Payment t) {
 		return ResponseEntity.ok(service.delete(t));
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> delete(@PathVariable long id){
+		return ResponseEntity.ok(service.delete(id));
+	}
+	@PutMapping("/edit/{id}")
+	public ResponseEntity<String> edit(@PathVariable long id, @RequestBody Payment t){
+		System.out.println("edit :"+t.toString());
+		return ResponseEntity.ok(service.edit(t));
 	}
 
 	@GetMapping("/count")

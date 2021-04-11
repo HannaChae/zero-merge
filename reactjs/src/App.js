@@ -9,7 +9,7 @@ import { MainPage, NotFoundPage } from "__common__/index"
 import { LoginRegisterPage, AdminPage, UserListPage } from "__user__/index"
 import { ProductAddPage, ProductListPage, CategoryListPage, ProductDetailPage, ProductEditPage, CartPage, WishlistPage } from "__product__/index"
 import { BlogWritePage, BlogListPage, BlogDetailPage, BlogUpdatePage } from "__board__/index"
-import { MyAccount, Checkout, SuccessPage } from "__payment__/index"
+import { MyAccount, Checkout, SuccessPage, MyAccountDetail } from "__payment__/index"
 
 const About = lazy(() => import("pages/other/About"))
 const Contact = lazy(() => import("pages/other/Contact"))
@@ -161,6 +161,10 @@ const App = (props) => {
                 <Route
                   path={process.env.PUBLIC_URL + "/my-account"}
                   component={MyAccount}
+                />
+                <Route 
+                  path={process.env.PUBLIC_URL + "/my-account-detail/:id"} 
+                  component={MyAccountDetail}
                 />
                 <Route
                   path={process.env.PUBLIC_URL + "/about"}

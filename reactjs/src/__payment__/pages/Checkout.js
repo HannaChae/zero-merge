@@ -16,7 +16,7 @@ window.$ = window.jQuery = jQuery;
 
 
 
-const Checkout = ({ location, cartItems, currency}) => {
+const Checkout = ({ location, cartItems, currency }) => {
 
   const [cartItem, setCartItem] = useState('')
   const [username, setUsername] = useState('')
@@ -56,11 +56,11 @@ const Checkout = ({ location, cartItems, currency}) => {
 
   const { pathname } = location;
   let cartTotalPrice = 0;
-  const { IMP } = window;
+  const { IMP } = window;
 
-  const [ rcvName, setRcvName ] = useState('')
-  const [ rcvPhone, setRcvPhone ] = useState('')
-  const [ rcvAddr, setRcvAddr ] = useState('')
+  const [ rcvName, setRcvName ] = useState('')
+  const [ rcvPhone, setRcvPhone ] = useState('')
+  const [ rcvAddr, setRcvAddr ] = useState('')
 
   const [ payPrice, setPayPrice ] = useState('')
   const [ dvrFee, setDvrFee] = useState('')
@@ -70,7 +70,7 @@ const Checkout = ({ location, cartItems, currency}) => {
 
   const [nowTime, setNowTime] = useState(moment().format('YYYY-MM-DD HH:mm:ss'));
 
-  const placeOrder = e => {
+  const placeOrder = e => {
     e.preventDefault()
          /* 1. 가맹점 식별하기 */
     const { IMP } = window;
@@ -182,16 +182,16 @@ const Checkout = ({ location, cartItems, currency}) => {
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Name</label>
-                          <input name="rcvName" value={rcvName} placeholder="받으시는 분의 성함을 입력하세요" required
-                          onChange = { e => { setRcvName(`${e.target.value}`)}}
+                          <input name="rcvName" value={rcvName} placeholder="받으시는 분의 성함을 입력하세요" required
+                          onChange = { e => { setRcvName(`${e.target.value}`)}}
                           />
                         </div>
                       </div>
                       <div className="col-lg-6 col-md-6">
                         <div className="billing-info mb-20">
                           <label>Phone</label>
-                          <input type="number" name="rcvPhone" value={rcvPhone} placeholder="받으시는 분의 연락처를 입력하세요" required
-                          onChange = { e => { setRcvPhone(`${e.target.value}`)}}
+                          <input type="number" name="rcvPhone" value={rcvPhone} placeholder="받으시는 분의 연락처를 입력하세요" required
+                          onChange = { e => { setRcvPhone(`${e.target.value}`)}}
                           />
                         </div>
                       </div>
@@ -200,7 +200,7 @@ const Checkout = ({ location, cartItems, currency}) => {
                           <label>Address</label> <button onClick={ execPostCode }>주소 검색</button>
                           <input type="text" value={`${postcode} ${addr} ${extraAddr}`} readOnly />
                           <input type="text" placeholder="받으시는 분의 상세 주소를 입력하세요" name="fullAddr" value={fullAddr} required
-                          onChange = { e => { setFullAddr(`${e.target.value}`)}} />
+                          onChange = { e => { setFullAddr(`${e.target.value}`)}} />
                         </div>
                       </div>
 
@@ -282,7 +282,7 @@ const Checkout = ({ location, cartItems, currency}) => {
                       <div className="payment-method"></div>
                     </div>
                     <div className="place-order mt-25">
-                    <button className="btn-hover" type="submit" onClick={placeOrder}>Place Order</button>
+                    <button className="btn-hover" type="submit" onClick={placeOrder}>Place Order</button>
                     </div>
                   </div>
                 </div>

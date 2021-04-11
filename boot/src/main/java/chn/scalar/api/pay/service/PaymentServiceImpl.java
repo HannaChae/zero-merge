@@ -19,6 +19,17 @@ public class PaymentServiceImpl extends AbstractService<Payment>
 	private final PaymentRepository repo;
 
 	@Override public long save(Payment t) {return (repo.save(t)!=null) ? 1 : 0 ;}
+
+	@Override
+	public String delete(long id) {
+		repo.deleteById(id);
+		return "SUCCESS";
+	}
+	@Override
+	public String edit(Payment t) {
+		Payment pay = repo.save(t);
+		return (pay != null) ? "SUCCESS": "FAILURE";
+	}
 	@Override public long count() {return (long) repo.count();}
 	@Override public Payment getOne(long id) {return repo.getOne(id);}
 	@Override public Optional<Payment> findById(long id) {return repo.findById(id);}

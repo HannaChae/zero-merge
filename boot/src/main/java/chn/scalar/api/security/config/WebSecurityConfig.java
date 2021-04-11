@@ -82,16 +82,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/payment/delete").permitAll()//
                 .antMatchers("/payment/count").permitAll()//
                 .antMatchers("/payment/all").permitAll()//
+                .antMatchers("/payment/{id}").permitAll()//
+                .antMatchers("/payment/edit/{id}").permitAll()//
                 .antMatchers("/payment/one/{id}").permitAll()//
                 .antMatchers("/payment/find/{id}").permitAll()//
                 .antMatchers("/payment/exists/{id}").permitAll()//
-                .antMatchers("/receiver/save").permitAll()//
-                .antMatchers("/receiver/delete").permitAll()//
-                .antMatchers("/receiver/count").permitAll()//
-                .antMatchers("/receiver/all").permitAll()//
-                .antMatchers("/receiver/one/{id}").permitAll()//
-                .antMatchers("/receiver/find/{id}").permitAll()//
-                .antMatchers("/receiver/exists/{id}").permitAll()//
                 .antMatchers("/h2-console/**/**").permitAll()
                 // Disallow everything else..
                 .anyRequest().authenticated();

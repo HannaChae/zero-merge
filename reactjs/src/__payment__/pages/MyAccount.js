@@ -1,52 +1,79 @@
 import PropTypes from "prop-types";
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import Card, { CardBody } from "react-bootstrap/Card";
+import { Link } from 'react-router-dom'
 import Accordion from "react-bootstrap/Accordion";
 import LayoutOne from "layouts/LayoutOne";
 import Breadcrumb from "wrappers/breadcrumb/Breadcrumb";
 import axios from 'axios';
+import { useHistory } from "react-router"
 import { RefreshRounded } from "@material-ui/icons";
 
 
-const MyAccount = ({ location }) => {
+const MyAccount = ({ location, match }) => {
+
+
+
     const [payment, setPayment] = useState([])
     const [receiver, setReceiver] = useState([])
     const [ payPrice, setPayPrice ] = useState('')
     const [ payState, setPayState] = useState('')
     const [ payDate, setPayDate] = useState('')
+    const history = useHistory()
 
     useEffect(()=>{
       axios.get("http://localhost:8080/payment/all", { 
         headers: {
         'Content-Type'  : 'application/json',
         'Authorization' : 'JWT fefege..'
-      }
+      },
     },)
       .then((res) => {
-        setPayment(res.data)})
-      .catch((err) => {
-        alert('실패')
-        throw err;
+        setPayment(res.data)
       })
-    }, [])
-
-    useEffect(()=>{
-      axios.get("http://localhost:8080/receiver/all", { 
-        headers: {
-        'Content-Type'  : 'application/json',
-        'Authorization' : 'JWT fefege..'
-      }
-    },)
-      .then((res) => {
-        setReceiver(res.data)})
       .catch((err) => {
         alert('실패')
         throw err;
       })
     }, [])
   
+    
+    const [ payments, setPayments ] = useState({})
+
+    // useEffect(()=>{
+    //   setPayments(JSON.parse(localStorage.getItem("payments")))
+    // }, [])
+
+        useEffect(()=>{
+          const arr = localStorage.getItem("payments")
+
+        }, [])
+
+
+  
+    // const update = e => {
+
+    // }
+    // const refund = e => {
+    //   axios.delete(`http://localhost:8080/payment/${match.params.id}`, {
+    //     headers: {
+    //       'Content-Type'  : 'application/json',
+    //       'Authorization' : 'JWT fefege..'
+    //     },
+    //     data: {}
+    //   },)
+    //   .then(res => {
+    //     alert(`환불 성공`)
+    //     history.push(`/my-account`)
+    //   })
+    //   .catch(err => {
+    //     console.log(payment.payNo + `번 주문 삭제 실패: ` + err)
+    //     throw err
+    //   })
+    // }
+
   // const update = e => {
   //   e.preventDefault()
   //   axios.put("http://localhost")
@@ -71,7 +98,21 @@ const MyAccount = ({ location }) => {
   //   console.log(boards.brdNo + `번 게시글 수정 실패: ` + err)
   //   throw err
   // })  
-  
+  const paymentDelete = e => {
+
+    e.preventDefault()
+    axios({
+        url: 'http://localhost:8080/payment/' + match.params.id,
+        method: 'delete',
+        headers: {'Content-Type':'application/json',
+                  'Authorization': 'JWT fefege...'},
+        data: {}
+    }).then(res => {
+        history.push('/my-account')
+    }).catch(err => {
+        alert(err.response)
+    })
+}
 
 
   const year = ["전체기간", "1주", "1개월", "3개월", "1년"];
@@ -122,46 +163,46 @@ const MyAccount = ({ location }) => {
                             </div>
                           </article>
                             </div>
-                             
+                            {payment.map((pay, id) => (
                             <div className="entries-wrapper">
                               <div className="row">
                                 <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
                                   <div className="entries-info text-center">
-                                    {payment.map(card => (
-                                      <div>
-                                        <h4>결제정보</h4>
+                                      <div key={id}>
+                                        <h4>결제 정보</h4>
                                         <div>
-                                        결제시간 {card.payDate}
+                                        결제번호 <Link to={`/my-account-detail/${pay.payNo}`} 
+                                        onClick={() => localStorage.setItem('payment', JSON.stringify(pay))}>{pay.payNo}</Link>
                                         </div>
                                         <div>
-                                        결제금액 {card.payPrice}
+                                        결제시간 {pay.payDate}
                                         </div>
                                         <div>
-                                        주문상태 {card.payState}
+                                        결제금액 {pay.payPrice}
+                                        </div>
+                                        <div>
+                                        주문상태 {pay.payState}
+                                        </div>
+                                        <h4>배송 정보</h4>
+                                        <div>
+                                        이름 {pay.rcvName}
+                                        </div>
+                                        <div>
+                                        연락처 {pay.rcvPhone}
+                                        </div>
+                                        <div>
+                                        주소 {pay.rcvAddr}
                                         </div>
                                       </div>
-                                      ))}
-                                    {receiver.map(card => (
-                                      <div>
-                                        <h4>배송지 정보</h4>
-                                        <div>
-                                        받는 사람 {card.rcvName}
-                                        </div>
-                                        <div>
-                                        연락처 {card.rcvPhone}
-                                        </div>
-                                        <div>
-                                        주소 {card.rcvAddr}
-                                        </div>
-                                      </div>
-                                      ))}  
                                   </div>
                                 </div>
                                 <div className="col-lg-6 col-md-6 d-flex align-items-center justify-content-center">
                                   <div className="entries-edit-delete text-center">
+
+                                    {/* <button className="edit" onClick={refund}>교환/환불</button> */}
+                                    <button className="edit" >배송지 변경</button>
+                                    <button onClick={paymentDelete}>삭 제</button>
                                     <form action="http://info.sweettracker.co.kr/tracking/5" method="post">
-                                    {/* <button className="edit" onClick={refund}>교환/환불</button>
-                                    <button className="edit" onClick={update}>배송지 변경</button> */}
                                     <button type="submit">배송조회</button>
                                         <input type="hidden" id="t_key" name="t_key" value="ymJmuSQTWNb5HVh5nip8cw"/>
                                         <input type="hidden" name="t_code" id="t_code" value="04"/>
@@ -171,7 +212,7 @@ const MyAccount = ({ location }) => {
                                 </div>
                               </div>
                             </div>
-
+                                      ))}
                             <div className="billing-back-btn">
                               <div className="billing-btn">
                                 <button type="submit">Continue</button>
