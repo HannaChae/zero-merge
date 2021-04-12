@@ -28,7 +28,7 @@ const Checkout = ({ location, cartItems, currency }) => {
     setCartItem(localStorage.getItem("cartItem"))
   })
   const check = () => {
-    alert(JSON.stringify(cartTotalPrice+2500));
+    alert(localStorage.getItem(JSON.stringify(cartItem)));
   }
 
   const [ addr, setAddr ] = useState('')

@@ -24,7 +24,9 @@ const MyAccountDetail = ({ location, match }) => {
     const history = useHistory()
     const { pathname } = location;
     const year = ["전체기간", "1주", "1개월", "3개월", "1년"];
-
+   const list = () => {
+    history.push('/my-account')
+   }
     // const ChangeAddr = () => {
     //     setPayment(JSON.parse(localStorage.getItem("payment")))
     // } 
@@ -265,13 +267,15 @@ const MyAccountDetail = ({ location, match }) => {
                                       <div>
                                         <h4>결제 정보</h4>
                                         <div>
-                                        주문상태 <input type="text" value={payment.payState || ''} readOnly/>
+                                        결제번호 <input type="text" value={payment.payNo || ''} readOnly/>
                                         결제시간 <input type="text" value={payment.payDate || ''} readOnly/>
+                                        결제상품 <input type="text" value={payment.payInfo || ''} readOnly/>
                                         결제금액 <input type="text" value={payment.payPrice || ''} readOnly/>
+                                        주문상태 <input type="text" value={payment.payState || ''} readOnly/>
                                         </div>
                                         <h4>배송 정보</h4>
                                         <div>
-                                        <button onClick={ execPostCode }>주소 검색</button>
+                                        주소 <button onClick={ execPostCode }>주소 검색</button>
                                         <input type="text" value={`${postcode} ${addr} ${extraAddr}`} readOnly />
                                         <input type="text" placeholder="받으시는 분의 상세 주소를 입력하세요" name="fullAddr" value={fullAddr} required
                                         onChange = { e => { setFullAddr(`${e.target.value}`)}} />
@@ -286,7 +290,7 @@ const MyAccountDetail = ({ location, match }) => {
                                   <button onClick={refund}>삭 제</button>
                                     {/* <button className="edit" onClick={refund}>교환/환불</button> */}
                                     <button className="edit" onClick={addrChange}>배송지 변경</button>
-                                    
+                                    <button onClick={list}>목 록</button>
                                   </div>
                                 </div>
                               </div>
