@@ -27,10 +27,6 @@ const Checkout = ({ location, cartItems, currency }) => {
   useEffect(()=>{
     setCartItem(localStorage.getItem("cartItem"))
   })
-  const check = () => {
-    alert(localStorage.getItem(JSON.stringify(cartItem)));
-  }
-
   const [ addr, setAddr ] = useState('')
   const [ extraAddr, setExtraAddr ] = useState('')
   const [ postcode, setPostcode ] = useState('')
@@ -164,7 +160,6 @@ const Checkout = ({ location, cartItems, currency }) => {
                 <div className="col-lg-7">
                   <div className="billing-info-wrap">
                     <h3>User Info</h3>
-                    <button onClick={check}></button>
                     <div className="row">
                         <div className="col-lg-6 col-md-6">
                           <div className="billing-info mb-20">

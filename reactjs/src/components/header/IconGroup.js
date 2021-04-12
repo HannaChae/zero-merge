@@ -70,7 +70,6 @@ const IconGroup = ({
         <Link to={process.env.PUBLIC_URL + "/compare"}>
           <i className="pe-7s-shuffle" />
           <span className="count-style">
-            {compareData && compareData.length ? compareData.length : 0}
           </span>
         </Link>
       </div>
@@ -78,7 +77,6 @@ const IconGroup = ({
         <Link to={process.env.PUBLIC_URL + "/wishlist"}>
           <i className="pe-7s-like" />
           <span className="count-style">
-            {wishlistData && wishlistData.length ? wishlistData.length : 0}
           </span>
         </Link>
       </div>

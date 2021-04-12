@@ -17,10 +17,6 @@ const MyAccount = ({ location, match }) => {
 
 
     const [payment, setPayment] = useState([])
-    const [receiver, setReceiver] = useState([])
-    const [ payPrice, setPayPrice ] = useState('')
-    const [ payState, setPayState] = useState('')
-    const [ payDate, setPayDate] = useState('')
     const history = useHistory()
 
     useEffect(()=>{
@@ -39,80 +35,10 @@ const MyAccount = ({ location, match }) => {
       })
     }, [])
   
-    
-    const [ payments, setPayments ] = useState({})
-
-    // useEffect(()=>{
-    //   setPayments(JSON.parse(localStorage.getItem("payments")))
-    // }, [])
-
         useEffect(()=>{
           const arr = localStorage.getItem("payments")
 
         }, [])
-
-
-  
-    // const update = e => {
-
-    // }
-    // const refund = e => {
-    //   axios.delete(`http://localhost:8080/payment/${match.params.id}`, {
-    //     headers: {
-    //       'Content-Type'  : 'application/json',
-    //       'Authorization' : 'JWT fefege..'
-    //     },
-    //     data: {}
-    //   },)
-    //   .then(res => {
-    //     alert(`환불 성공`)
-    //     history.push(`/my-account`)
-    //   })
-    //   .catch(err => {
-    //     console.log(payment.payNo + `번 주문 삭제 실패: ` + err)
-    //     throw err
-    //   })
-    // }
-
-  // const update = e => {
-  //   e.preventDefault()
-  //   axios.put("http://localhost")
-  // }
-  // axios({
-  //   url: 'http://localhost:8080/boards/update/' + localStorage.getItem(`brdNo`),
-  //   method: 'put',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     'Authorization': 'JWT fefege..'
-  //   },
-  //   data: { 
-  //     brdNo: localStorage.getItem(`brdNo`), 
-  //     brdTitle, brdContent, brdWrtDate, brdRank, brdImg, brdLike, usrNickname
-  //   }
-  // })
-  // .then((res) => {
-  //   console.log(boards.brdNo + `번 게시글 수정 성공`)
-  //   history.push(`/blog-all`)
-  // })
-  // .catch(err => {
-  //   console.log(boards.brdNo + `번 게시글 수정 실패: ` + err)
-  //   throw err
-  // })  
-  const paymentDelete = e => {
-
-    e.preventDefault()
-    axios({
-        url: 'http://localhost:8080/payment/' + match.params.id,
-        method: 'delete',
-        headers: {'Content-Type':'application/json',
-                  'Authorization': 'JWT fefege...'},
-        data: {}
-    }).then(res => {
-        history.push('/my-account')
-    }).catch(err => {
-        alert(err.response)
-    })
-}
 
 
   const year = ["전체기간", "1주", "1개월", "3개월", "1년"];
@@ -334,7 +260,7 @@ const MyAccount = ({ location, match }) => {
                                         결제시간 {pay.payDate}
                                         </div>
                                         <div>
-                                        결제상품 {pay.payInfo}
+                                        {/* 결제상품 {pay.payInfo} */}
                                         </div>
                                         <div>
                                         결제금액 {pay.payPrice}
