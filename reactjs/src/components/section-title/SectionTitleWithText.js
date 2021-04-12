@@ -10,13 +10,10 @@ const SectionTitleWithText = ({ spaceTopClass, spaceBottomClass }) => {
     >
       <div className="container">
         <div className="welcome-content text-center">
-          <h5>Who Are We</h5>
-          <h1>Welcome To Flone</h1>
+          <h5></h5>
+          <h1>로그인 후 이용해주세요.</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt labor et dolore magna aliqua. Ut enim ad
-            minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commo consequat irure{" "}
+            zero-shop을 방문해주셔서 감사합니다.
           </p>
         </div>
       </div>

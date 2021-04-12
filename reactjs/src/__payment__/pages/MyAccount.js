@@ -9,7 +9,7 @@ import LayoutOne from "layouts/LayoutOne";
 import Breadcrumb from "wrappers/breadcrumb/Breadcrumb";
 import axios from 'axios';
 import { useHistory } from "react-router"
-import { RefreshRounded } from "@material-ui/icons";
+import SectionTitleWithText from "components/section-title/SectionTitleWithText"
 
 
 const MyAccount = ({ location, match }) => {
@@ -118,8 +118,28 @@ const MyAccount = ({ location, match }) => {
   const year = ["전체기간", "1주", "1개월", "3개월", "1년"];
   const { pathname } = location;
 
-  return (
-    <>
+  return (<>
+    {localStorage.getItem("token") === null ?
+  <>
+  <MetaTags>
+        <title>Flone | Checkout</title>
+        <meta
+          name="description"
+          content="Checkout page of flone react minimalist eCommerce template."
+        />
+      </MetaTags>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+        Checkout
+      </BreadcrumbsItem>
+      <LayoutOne headerTop="visible">
+        {/* breadcrumb */}
+        <Breadcrumb />
+        <SectionTitleWithText spaceTopClass="pt-100" spaceBottomClass="pb-95" />
+        </LayoutOne>
+      </>
+      :
+      <>
       <MetaTags>
         <title>Flone | My Account</title>
         <meta
@@ -139,7 +159,7 @@ const MyAccount = ({ location, match }) => {
             <div className="row">
               <div className="ml-auto mr-auto col-lg-9">
                 <div className="myaccount-wrapper">
-                  <Accordion defaultActiveKey="0">
+                  <Accordion>
                   <Card className="single-my-account mb-20">
                       <Card.Header className="panel-heading">
                         <Accordion.Toggle variant="link" eventKey="0">
@@ -364,6 +384,8 @@ const MyAccount = ({ location, match }) => {
           </div>
         </div>
       </LayoutOne>
+    </>
+    }
     </>
   );
 };

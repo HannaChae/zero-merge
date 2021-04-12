@@ -12,6 +12,7 @@ import $ from "jquery";
 import jQuery from "jquery";
 import moment from "moment";
 import { useHistory } from "react-router"
+import SectionTitleWithText from "components/section-title/SectionTitleWithText"
 window.$ = window.jQuery = jQuery;
 
 const Checkout = ({ location, cartItems, currency }) => {
@@ -27,7 +28,7 @@ const Checkout = ({ location, cartItems, currency }) => {
     setCartItem(localStorage.getItem("cartItem"))
   })
   const check = () => {
-    alert([JSON.stringify(cartItem).prdName]);
+    alert(JSON.stringify(cartTotalPrice+2500));
   }
 
   const [ addr, setAddr ] = useState('')
@@ -71,7 +72,7 @@ const Checkout = ({ location, cartItems, currency }) => {
       pg: 'kakaopay',                                // PG사
       pay_method: 'card',                           // 결제수단
       merchant_uid: `mid_${new Date().getTime()}`,   // 주문번호
-      amount: 1000,                                 // 결제금액
+      amount: `${JSON.stringify(cartTotalPrice+2500)}`,                                 // 결제금액
       name: `${payInfo.prdName}`,                  // 주문명
       buyer_name: `${user.usrName}`,               // 구매자 이름
       buyer_tel: `${user.usrPhone}`,               // 구매자 전화번호
@@ -88,7 +89,7 @@ const Checkout = ({ location, cartItems, currency }) => {
         'Authorization' : 'JWT fefege..'
       },
       data: {
-        payPrice: "",
+        payPrice: JSON.stringify(cartTotalPrice+2500),
         payInfo: "",
         payDate: moment().format('YYYY-MM-DD HH:mm:ss'),
         payState: "결제완료",
@@ -120,8 +121,28 @@ const Checkout = ({ location, cartItems, currency }) => {
     }
   }
 
-  return (
-    <>
+  return (<>
+    {localStorage.getItem("token") === null ?
+  <>
+  <MetaTags>
+        <title>Flone | Checkout</title>
+        <meta
+          name="description"
+          content="Checkout page of flone react minimalist eCommerce template."
+        />
+      </MetaTags>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + "/"}>Home</BreadcrumbsItem>
+      <BreadcrumbsItem to={process.env.PUBLIC_URL + pathname}>
+        Checkout
+      </BreadcrumbsItem>
+      <LayoutOne headerTop="visible">
+        {/* breadcrumb */}
+        <Breadcrumb />
+        <SectionTitleWithText spaceTopClass="pt-100" spaceBottomClass="pb-95" />
+        </LayoutOne>
+      </>
+      :
+      <>
       <MetaTags>
         <title>Flone | Checkout</title>
         <meta
@@ -298,6 +319,8 @@ const Checkout = ({ location, cartItems, currency }) => {
         </div>
       </LayoutOne>
     </>
+          }
+          </>
   );
 };
 
