@@ -269,8 +269,8 @@ const MyAccountDetail = ({ location, match }) => {
                                         <div>
                                         결제번호 <input type="text" value={payment.payNo || ''} readOnly/>
                                         결제시간 <input type="text" value={payment.payDate || ''} readOnly/>
-                                        결제상품 <input type="text" value={payment.payInfo || ''} readOnly/>
-                                        {/* 결제금액 <input type="text" value={payment.payPrice || ''} readOnly/> */}
+                                        {/* 결제상품 <input type="text" value={payment.payInfo || ''} readOnly/> */}
+                                        결제금액 <input type="text" value={payment.payPrice || ''} readOnly/>
                                         주문상태 <input type="text" value={payment.payState || ''} readOnly/>
                                         </div>
                                         <h4>배송 정보</h4>
