@@ -14,22 +14,21 @@ import moment from "moment";
 import { useHistory } from "react-router"
 window.$ = window.jQuery = jQuery;
 
-
-
 const Checkout = ({ location, cartItems, currency }) => {
 
-  const [cartItem, setCartItem] = useState('')
-  const [username, setUsername] = useState('')
-  const [usrName, setUsrName] = useState('')
-  const [usrAddr, setUsrAddr] = useState('')
-  const [usrPhone, setUsrPhone] = useState('')
   const [user, setUser] = useState({})
-  const [prdName, setPrdName] = useState([])
+  const [cartItem, setCartItem] = useState([])
   const history = useHistory()
 
   useEffect(()=>{
     setUser(JSON.parse(localStorage.getItem("user")))
   }, [])
+  useEffect(()=>{
+    setCartItem(localStorage.getItem("cartItem"))
+  })
+  const check = () => {
+    alert([JSON.stringify(cartItem).prdName]);
+  }
 
   const [ addr, setAddr ] = useState('')
   const [ extraAddr, setExtraAddr ] = useState('')
@@ -56,19 +55,10 @@ const Checkout = ({ location, cartItems, currency }) => {
 
   const { pathname } = location;
   let cartTotalPrice = 0;
-  const { IMP } = window;
 
   const [ rcvName, setRcvName ] = useState('')
   const [ rcvPhone, setRcvPhone ] = useState('')
-  const [ rcvAddr, setRcvAddr ] = useState('')
-
-  const [ payPrice, setPayPrice ] = useState('')
-  const [ dvrFee, setDvrFee] = useState('')
-  const [ payDate, setPayDate] = useState('')
-  const [ payState, setPayState] = useState('')
   const [ payInfo, setPayInfo] = useState('')
-
-  const [nowTime, setNowTime] = useState(moment().format('YYYY-MM-DD HH:mm:ss'));
 
   const placeOrder = e => {
     e.preventDefault()
@@ -78,14 +68,14 @@ const Checkout = ({ location, cartItems, currency }) => {
 
     /* 2. 결제 데이터 정의하기 */
     const data = {
-      pg: 'kakaopay',                           // PG사
+      pg: 'kakaopay',                                // PG사
       pay_method: 'card',                           // 결제수단
       merchant_uid: `mid_${new Date().getTime()}`,   // 주문번호
       amount: 1000,                                 // 결제금액
       name: `${payInfo.prdName}`,                  // 주문명
-      buyer_name: `${user.usrName}`,                           // 구매자 이름
-      buyer_tel: `${user.usrPhone}`,                   // 구매자 전화번호
-      buyer_addr: `${user.usrAddr}`                 // 구매자 주소
+      buyer_name: `${user.usrName}`,               // 구매자 이름
+      buyer_tel: `${user.usrPhone}`,               // 구매자 전화번호
+      buyer_email: `${user.usrEmail}`              // 구매자 주소
     }
     /* 4. 결제 창 호출하기 */
     IMP.request_pay(data, callback);
@@ -100,11 +90,10 @@ const Checkout = ({ location, cartItems, currency }) => {
       data: {
         payPrice: "",
         payInfo: "",
-        payDate: nowTime,
+        payDate: moment().format('YYYY-MM-DD HH:mm:ss'),
         payState: "결제완료",
-        rcvName,
-        rcvPhone,
         rcvAddr: `${postcode} ${addr} ${extraAddr}`+` `+fullAddr,
+        rcvName, rcvPhone,
       }
     })
     .then(res => {
@@ -114,7 +103,6 @@ const Checkout = ({ location, cartItems, currency }) => {
       console.log(`실패: ` + err)
       throw err
     })
-
 }
   /* 3. 콜백 함수 정의하기 */
   function callback(response) {
@@ -155,27 +143,26 @@ const Checkout = ({ location, cartItems, currency }) => {
                 <div className="col-lg-7">
                   <div className="billing-info-wrap">
                     <h3>User Info</h3>
+                    <button onClick={check}></button>
                     <div className="row">
-                      <ul>
                         <div className="col-lg-6 col-md-6">
                           <div className="billing-info mb-20">
                             <label>Name</label>
-                            <input type="text" value={user.usrName || ''} readOnly/>
+                            <input type="text" value={user.usrName || ''} />
                           </div>
                         </div>
                         <div className="col-lg-6 col-md-6">
                           <div className="billing-info mb-20">
                             <label>Phone</label>
-                            <input type="text" value={user.usrPhone || ''} readOnly/>
+                            <input type="text" value={user.usrPhone || ''} />
                           </div>
                         </div>
                         <div className="col-lg-12">
                           <div className="billing-info mb-20">
-                            <label>Address</label>
-                            <input type="text" value={user.usrAddr || ''} readOnly/>
+                            <label>Email</label>
+                            <input type="text" value={user.usrEmail || ''} />
                           </div>
                         </div>
-                      </ul>
                     </div>
                     <h3>Billing Details</h3>
                     <div className="row">
@@ -196,11 +183,14 @@ const Checkout = ({ location, cartItems, currency }) => {
                         </div>
                       </div>
                       <div className="col-lg-12">
-                        <div className="billing-info mb-20">
-                          <label>Address</label> <button onClick={ execPostCode }>주소 검색</button>
+                        <div className="billing-info mb-20"> 
+                          <div className="addr-search mt-25">
+                            <label>Address</label>
+                            <button onClick={ execPostCode }>주소 검색</button>
                           <input type="text" value={`${postcode} ${addr} ${extraAddr}`} readOnly />
                           <input type="text" placeholder="받으시는 분의 상세 주소를 입력하세요" name="fullAddr" value={fullAddr} required
                           onChange = { e => { setFullAddr(`${e.target.value}`)}} />
+                          </div>
                         </div>
                       </div>
 
